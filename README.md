@@ -73,6 +73,16 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 - [Preguntas abiertas · lo que NO sabemos todavía](research/preguntas-abiertas.md)
 - [Screen-time, Minecraft, smart toys, AI companions · datos con fuentes](research/screen-time-data.md) — ~1700 palabras con citas verificables (Common Sense, CDC, Pew, UNESCO, AAP, Harvard, caso Moxie/Embodied)
 
+## Plan de implementación (`plan/`)
+
+- [Plan completo](plan/PLAN.md) — 21 áreas, 94 tareas, owners y prioridades
+- [Índice rápido](plan/README.md) — vista de área y filtros útiles
+- **🟢 [Issues en GitHub](https://github.com/SairaAsua/final-daemon/issues)** — cada tarea como issue con labels
+- **🗂️ [Project (kanban)](https://github.com/users/SairaAsua/projects/3)** — DaemonCraft Implementation
+
+> El plan cubre **todo lo que rodea al juego** (app, onboarding, demo design, reportes, web, branding, lore, marketing, beta, legal, negocio, futuro).
+> **NO cubre** lo que hace el equipo de desarrollo: agente, memoria (HMK), autoresearch, soul-engine, DaemonMatrix, infra Mineflayer/Forge.
+
 ---
 
 **Branding**: solo "DaemonCraft", sin subtítulos, sin taglines, paleta **acero-azul**.
