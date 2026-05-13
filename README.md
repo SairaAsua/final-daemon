@@ -1,11 +1,12 @@
 # final-daemon
 
-Mapa mental del proyecto DaemonMatrix + DaemonCraft de AlterMundi.
+Mapa mental del proyecto **DaemonCraft** de AlterMundi.
 
-DaemonCraft es el juego. DaemonMatrix es la capa de portabilidad de agentes que corre por detrás. LaVanguardIA es el espíritu que anima al agente.
+DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes (APL) que corre por detrás. **LaVanguardIA** es el espíritu del agente.
 
-## Índice
+## Mapa mental (docs/)
 
+- [00 · Glosario](docs/00_glosario.md)
 - [01 · Visión general](docs/01_vision.md)
 - [02 · DaemonMatrix (la capa)](docs/02_daemonmatrix.md)
 - [03 · DaemonCraft (el juego)](docs/03_daemoncraft.md)
@@ -20,3 +21,24 @@ DaemonCraft es el juego. DaemonMatrix es la capa de portabilidad de agentes que 
 - [12 · Roadmap e hitos](docs/12_roadmap.md)
 - [13 · Branding](docs/13_branding.md)
 - [14 · Eko](docs/14_eko.md)
+- [15 · Voz y tono](docs/15_voz_y_tono.md)
+
+## Pitch (pitch/)
+
+- [One-pager](pitch/one-pager.md)
+- [Deck (slide por slide)](pitch/deck.md)
+
+## Marketing (marketing/)
+
+- [Landing copy](marketing/landing.md)
+- [FAQ para papás](marketing/faq-papas.md)
+
+## Investigación (research/)
+
+- [Preguntas abiertas · lo que NO sabemos todavía](research/preguntas-abiertas.md)
+
+---
+
+**Branding**: solo "DaemonCraft", sin subtítulos, sin taglines, paleta acero-azul.
+
+**Nota**: este repo es el mapa mental de la idea. Es fiel a lo que dijo Saira. Lo que no sabemos está en `research/preguntas-abiertas.md` — no se inventa.
