@@ -7,7 +7,7 @@
 | Rol | Persona |
 |---|---|
 | CEO | Nicolás Echániz |
-| Video coder · Executive Assistant | Saira Asua |
+| Videcoder | Saira Asua |
 | CTO · Researcher | Federico Bonino |
 | AI · Experto en IA | Mariano Fernández Méndez |
 | Developers | Anabella Scigliano · Pablo Bustos · Javier Jorge · Jeremías Castro |
