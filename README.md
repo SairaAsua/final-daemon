@@ -81,10 +81,11 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 - [Plan completo](plan/PLAN.md) — 21 áreas, 94 tareas, owners y prioridades
 - [Sprint de 6 días · plan táctico](plan/SPRINT_6_DIAS.md) — para producir entregables si hay urgencia
 - [Índice rápido](plan/README.md) — todas las vistas, filtros y enlaces directos
+- **📊 [Dashboard kanban local](dashboard/)** — `cd dashboard && python3 -m http.server 8771` · luego abrir http://localhost:8771 · vista tipo Trello de las 94 tareas con filtros
 - **🚀 [Pre-beta — destrabar la beta](https://github.com/SairaAsua/final-daemon/milestone/1)** · 25 tareas urgentes
 - **🌱 [Beta — construir y validar](https://github.com/SairaAsua/final-daemon/milestone/2)** · 44 tareas
 - **🌳 [Post-beta — crecer](https://github.com/SairaAsua/final-daemon/milestone/3)** · 25 tareas
-- **🗂️ [Project (kanban tipo Trello)](https://github.com/users/SairaAsua/projects/3)** — DaemonCraft Implementation
+- **📁 [Project (kanban tipo Trello)](https://github.com/users/SairaAsua/projects/3)** — DaemonCraft Implementation
 
 > El plan cubre **todo lo que rodea al juego** (app, onboarding, demo design, reportes, web, branding, lore, marketing, beta, legal, negocio, futuro).
 > **NO cubre** lo que hace el equipo de desarrollo: agente, memoria (HMK), autoresearch, soul-engine, DaemonMatrix, infra Mineflayer/Forge.
