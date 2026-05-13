@@ -43,6 +43,7 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 
 - [16 · Arquitectura real (paths, stack, lo que existe)](docs/16_arquitectura_real.md)
 - [17 · Personajes y skills](docs/17_personajes_y_skills.md)
+- [19 · Relación con material oficial paralelo](docs/19_relacion_con_material_oficial.md) — divergencias conocidas entre `final-daemon` y el material oficial en `daemonmatrix/DaemonCraft/`
 
 ---
 
@@ -70,6 +71,7 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 ## Investigación (`research/`)
 
 - [Preguntas abiertas · lo que NO sabemos todavía](research/preguntas-abiertas.md)
+- [Screen-time, Minecraft, smart toys, AI companions · datos con fuentes](research/screen-time-data.md) — ~1700 palabras con citas verificables (Common Sense, CDC, Pew, UNESCO, AAP, Harvard, caso Moxie/Embodied)
 
 ---
 

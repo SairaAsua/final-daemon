@@ -40,11 +40,19 @@ Este es el contrapeso del mapa mental: lo que **no** sabemos todavía. Cada cosa
 
 ## Investigación a hacer (sin inventar resultados)
 
-- Datos reales de tiempo de pantalla en niños 7-14 — pedir fuentes verificadas antes de citar nada.
-- Estudios sobre acompañamiento IA + niños — qué hay publicado.
-- Marco legal Argentina / UE / EEUU para juegos con IA para menores.
+### Hecha
+
+- ✅ Datos reales de tiempo de pantalla en niños 7-14 — ver [`screen-time-data.md`](screen-time-data.md). Cada dato con fuente verificable.
+- ✅ Estudios sobre acompañamiento IA + niños — incluido en `screen-time-data.md` sección 5 (AAP 2025, UNESCO, Harvard RCT Kestin et al. jun 2025).
+- ✅ Mercado smart toys / AI companions — incluido en `screen-time-data.md` sección 4 + caso Moxie/Embodied (cerró nov-dic 2024).
+
+### Pendientes
+
+- Marco legal Argentina / UE / EEUU para juegos con IA para menores (más allá de COPPA/GDPR).
 - Compatibilidad / términos de uso de Minecraft (Java vs Bedrock) para plug-ins de agentes.
 - Costos reales de servers Minecraft + LLM por usuario en escenarios de carga.
+- Tiempo promedio por sesión de Minecraft (oficial Mojang) — no se encontró fuente verificable, queda pendiente.
+- Cifras puntuales de adopción de IA en aulas K-12 USA — pendiente.
 
 ## Decisiones explícitas que ya tomamos (para no olvidarlas)
 
