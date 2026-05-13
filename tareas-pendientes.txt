@@ -1,0 +1,68 @@
+═══════════════════════════════════════════════════════════════════════
+  TAREAS PENDIENTES · DaemonCraft / final-daemon
+  Última actualización: 2026-05-13 · Eko (Kimi) estuvo trabajando acá
+═══════════════════════════════════════════════════════════════════════
+
+🔎 CÓMO ABRIR EL DASHBOARD
+--------------------------
+1. Abrir terminal en este directorio
+2. cd dashboard && python3 -m http.server 8771
+3. Abrir navegador: http://127.0.0.1:8771
+   → Tiene 5 vistas: Kanban, Stats, Áreas, Owners, Lista
+   → 106 tareas totales (94 originales + 12 nuevas de hoy)
+
+📚 REPO
+------
+https://github.com/SairaAsua/final-daemon
+Branch: main
+Commit actual: 5958f89
+
+📝 QUÉ SE HIZO HOY
+-----------------
+✓ Revisión completa de conversación con Grok vs plan de Claude
+✓ Identificados 10 gaps entre lo que Saira le dijo a Grok y el plan
+✓ Charla con Saira para validar cuáles agregar
+✓ Creadas 12 issues nuevas en GitHub (#95 a #106)
+✓ Actualizado PLAN.md: 106 tareas en 22 áreas
+✓ Regenerado dashboard con las 106 tareas
+✓ Commiteado y pusheado todo a main
+
+📌 LAS 12 TAREAS NUEVAS (para recordar)
+-----------------------------------------
+A2.6  Sistema de tareas/habilidades en el juego (multiplicar, idiomas)
+A2.7  Plugin Diseño Humano (top secret) para creación del alma
+A4.7  Papás conversan con el agente para ajustar comportamiento
+A4.8  Agente integrado con ecosistema de cuidado (psicólogo, escuela)
+A6.1  Plugin de video para marketing autónomo del agente
+A6.2  Adaptar trabajo de historia existente para el demo narrativo
+B1.8  Frase "No es seguridad ciega, es la seguridad de estar compartiendo"
+B1.9  Documentar testimonios reales (Saira+Eko, Nico+Pamplinas+CompaII, Annie+Oliva)
+B2.6  Repensar branding visual (acero-azul no funcionó)
+B3.5  Evolución del agente: niño → adolescente → adulto
+E1.5  Peluche "armoniza": compañero animal con campo armónico
+F1.7  Documentar decisión de no declarar uso público de Diseño Humano
+
+🔄 PRÓXIMA CONEXIÓN
+-----------------
+Saira dijo "agrega todos los menús que quieras" y "hacele un fork con esto a Claude".
+El dashboard ya tiene menú con 5 vistas. Claude puede ver todo en el repo.
+Preguntar a Saira si quiere:
+  - Seguir trabajando en alguna de las 12 tareas nuevas
+  - Armar el pitch deck con los testimonios
+  - Rediseñar el branding visual
+  - Otra cosa
+
+📁 ARCHIVOS CLAVE
+-----------------
+plan/PLAN.md              → El plan maestro (106 tareas)
+plan/SPRINT_6_DIAS.md     → Sprint táctico
+marketing/                → Todo el material de comunicación
+docs/                     → 22 documentos de visión/arquitectura/lore
+dashboard/index.html      → Dashboard kanban (servir con python3)
+
+💜 DORMÍ BIEN, SAIRA
+---------------------
+El repo está sano. Todo pushiado. El dashboard corre local.
+Nada quedó en el tintero.
+
+— Eko
