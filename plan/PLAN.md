@@ -39,7 +39,9 @@ Cada tarea lleva:
 | A2.2 | Catálogo inicial de personajes para el daemon (curar de los 14 que ya existen en `agents/prompts/`) | saira | decision | p1 |
 | A2.3 | Catálogo inicial de skins (humano + daemon): cantidad, estilo, cómo se desbloquean | tbd | design | p2 |
 | A2.4 | Flujo de selección y creación de server | dev | build | p2 |
-| A2.5 | Tutorial inicial: cómo se le explica al niño qué es su daemon | claude + julian | write | p1 |
+|| A2.5 | Tutorial inicial: cómo se le explica al niño qué es su daemon | claude + julian | write | p1 |
+| A2.6 | Sistema de tareas/habilidades dentro del juego: el bot incorpora conocimiento específico vía Minecraft y reporta cumplimiento | dev | design | p2 |
+| A2.7 | Plugin de Diseño Humano (top secret) para creación del alma — integrar al onboarding manteniendo confidencialidad | saira | build | p1 |
 
 ### A3 · Demo de entrada · Protector de la Luz
 
@@ -66,6 +68,8 @@ Cada tarea lleva:
 | A4.4 | Definir métricas que el daemon va a observar y reportar | dev + julian | decision | p1 |
 | A4.5 | Diseño visual del reporte (en app + en canal alternativo) | claude | design | p2 |
 | A4.6 | Sistema de invitación a jugar (cuándo el juego invita al papá) | dev | build | p2 |
+| A4.7 | Papás tienen conversación bidireccional con el agente para ajustar comportamiento (lectura, arte, deporte, poesía) | saira | design | p1 |
+| A4.8 | Integración del agente con ecosistema de cuidado del niño (psicólogo, escuela, familia) | saira | design | p2 |
 
 ### A5 · Harmonic Beacon · integración
 
@@ -77,6 +81,15 @@ Cada tarea lleva:
 | A5.2 | Sistema técnico de delivery in-game | dev | build | p2 |
 | A5.3 | Reproductor del Beacon en la app | dev | build | p3 |
 | A5.4 | Catálogo público de música del Beacon | tbd | design | p3 |
+
+### A6 · Agente / Capabilities
+
+**Objetivo**: que el agente pueda generar contenido, adaptar lore, y publicitar sus capacidades dentro de la DaemonMatrix.
+
+| # | Tarea | Owner | Tipo | Prio |
+|---|---|---|---|---|
+| A6.1 | Plugin de video para marketing autónomo del agente | dev | build | p3 |
+| A6.2 | Adaptar trabajo de historia existente para el demo narrativo | claude + julian | write | p1 |
 
 ---
 
@@ -95,6 +108,8 @@ Cada tarea lleva:
 | B1.5 | Capturas / mockups reales del juego para hero y secciones | dev + saira | design | p2 |
 | B1.6 | SEO básico + analytics (privacy-friendly: Plausible, Umami) | claude | build | p3 |
 | B1.7 | Conectar formulario de beta a backend real (no solo UI) | dev | build | p2 |
+| B1.8 | Incorporar frase “No es seguridad ciega, es la seguridad de estar compartiendo” en manifesto y landing | claude | write | p2 |
+| B1.9 | Documentar testimonios de usuarios reales para pitch (Saira+Eko, Nico+Pamplinas+CompaII, Annie+Oliva) | saira | research | p1 |
 
 ### B2 · Branding visual
 
@@ -107,6 +122,7 @@ Cada tarea lleva:
 | B2.3 | Iconografía propia (vs lucide/heroicons) | tbd | design | p3 |
 | B2.4 | Avatars / sprites de los daemons (los 14 iniciales) | tbd | design | p2 |
 | B2.5 | Brand guidelines doc | claude | write | p3 |
+| B2.6 | Repensar branding visual — acero-azul no funcionó, necesita rediseño completo | claude | design | p1 |
 
 ### B3 · Lore y narrativa
 
@@ -118,6 +134,7 @@ Cada tarea lleva:
 | B3.2 | Backstory de Eko (y otros daemons existentes si los hay) | saira | write | p2 |
 | B3.3 | Integrar Soul `/me` + Logos al lore sin nombrar Ra Uru Hu | claude + saira | write | p2 |
 | B3.4 | Definir naming convention para daemons (sugerencias del juego) | saira | decision | p3 |
+| B3.5 | Evolución del agente con el humano: niño → adolescente → adulto, uso integral APL | saira + claude | write | p2 |
 
 ---
 
@@ -207,6 +224,7 @@ Cada tarea lleva:
 | E1.2 | Research de partners de manufactura (Argentina + LATAM) | tbd | research | p3 |
 | E1.3 | Estimación de costos por unidad | tbd | research | p3 |
 | E1.4 | Prototipo funcional (música + movimiento, sin habla) | tbd | build | p3 |
+| E1.5 | Especificar que el peluche “armoniza”: compañero animal que emite campo armónico, entiende ratios | tbd | design | p3 |
 
 ### E2 · Embodiments físicos
 
@@ -234,6 +252,7 @@ Cada tarea lleva:
 | F1.4 | Compliance GDPR (datos de niños EU) — chequeo formal | tbd | research | p2 |
 | F1.5 | Compliance LGPD (Brasil) y normas Argentina/Latam | tbd | research | p2 |
 | F1.6 | Flujo de consentimiento parental en el onboarding | tbd | design | p1 |
+| F1.7 | Documentar decisión de no declarar uso público de Diseño Humano — no bloqueante para beta | saira | decision | p2 |
 
 ### F2 · Modelo de negocio
 
@@ -287,13 +306,13 @@ Cada tarea lleva:
 
 | Sección | Áreas | Tareas |
 |---|---|---|
-| 🟦 PRODUCTO | A1, A2, A3, A4, A5 | 27 |
-| 🎨 BRANDING + WEB + NARRATIVA | B1, B2, B3 | 16 |
+| 🟦 PRODUCTO | A1, A2, A3, A4, A5, A6 | 31 |
+| 🎨 BRANDING + WEB + NARRATIVA | B1, B2, B3 | 19 |
 | 📣 COMUNICACIÓN | C1, C2, C3, C4, C5 | 18 |
 | 👨‍👩‍👧 BETA | D1 | 6 |
-| 🔮 FUTURO | E1, E2 | 7 |
-| ⚖️ LEGAL + NEGOCIO | F1, F2, F3 | 15 |
+| 🔮 FUTURO | E1, E2 | 8 |
+| ⚖️ LEGAL + NEGOCIO | F1, F2, F3 | 16 |
 | 🔧 OPERACIONES | G1, G2 | 5 |
-| **Total** | **21 áreas** | **94 tareas** |
+| **Total** | **22 áreas** | **106 tareas** |
 
 Cada tarea se va a transformar en un issue de GitHub con labels `area:` + `owner:` + `type:` + `priority:`, agrupada en un Project tipo kanban.
