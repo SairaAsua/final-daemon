@@ -44,15 +44,17 @@ Estar ahí adentro te trae al presente.
 
 ---
 
-## El demo es un mito.
+## El demo de entrada es un mito.
 
-Cuando entrás por primera vez, jugás **Protector de la Luz**.
+Cuando entrás por primera vez, jugás un demo que se llama *Protector de la Luz*.
 
 La Luz es un diamante adentro de un bloque de azufre. Los zombies vienen a romperlo. Vos y tu daemon hacen 4 pruebas — desafíos, parkour, lógica, construcción — mientras cuidan la Luz.
 
 Al final, encendés el Beacon.
 
 Es la estructura del Camino del Héroe, resignificada. La diseñó **Julián de la Reta**, psicólogo del equipo, como una *Proyección del Mito Personal*. Cada vez que jugás es distinta, porque el mito es tuyo.
+
+**Después del demo, recién empieza.** Tu daemon queda con vos, en su Soul, y lo que pase después lo elegís vos. Ser Protector de la Luz fue cómo entraste — no es lo que sos.
 
 ---
 

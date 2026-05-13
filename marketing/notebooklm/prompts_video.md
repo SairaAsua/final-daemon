@@ -18,8 +18,8 @@ Explicá la diferencia entre scrolear sin sentido y crear/jugar/aprender con un 
 3. EL JUEGO (60 segundos):
 Mostrá DaemonCraft como un juego sobre Minecraft donde el niño tiene un daemon — un agente personal con memoria, que crece con él. Tu daemon sabe quién sos. Es Game Master, arquitecto de mundos, compañero. Le ponés nombre. Elegís skin.
 
-4. EL DEMO — PROTECTOR DE LA LUZ (45 segundos):
-Contá el demo: la Luz es un diamante adentro de un bloque de azufre. Los zombies vienen a romperlo. Vos y tu daemon hacen 4 pruebas — desafíos, parkour, lógica, construcción — mientras cuidan la Luz. Al final encendés el Beacon. Es una Proyección del Mito Personal diseñada por el psicólogo Julián de la Reta.
+4. EL DEMO DE ENTRADA (45 segundos):
+Contá que cuando entrás por primera vez jugás un demo llamado Protector de la Luz: la Luz es un diamante adentro de un bloque de azufre, los zombies vienen a romperlo, vos y tu daemon hacen 4 pruebas — desafíos, parkour, lógica, construcción — mientras cuidan la Luz. Al final encendés el Beacon. Es una Proyección del Mito Personal diseñada por el psicólogo Julián de la Reta. ACLARÁ explícitamente: ser Protector de la Luz es solo el demo de entrada, no es el lore del juego. Después del demo, lo que el daemon haga con vos lo elegís vos.
 
 5. LA MÚSICA (20 segundos):
 Mencioná Harmonic Beacon — la tecnología de AlterMundi que genera un campo armónico desde la escala armónica natural (no la temperada). No es solo música, es un campo de referencia que trae al presente.

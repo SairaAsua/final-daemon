@@ -135,6 +135,18 @@ a:hover { color: var(--blue-electric); }
   line-height: 1.7;
   max-width: 70ch;
 }
+.after-demo {
+  margin-top: 40px;
+  padding: 24px 28px;
+  border-left: 2px solid var(--blue-electric);
+  background: var(--steel-bg);
+  border-radius: 0 8px 8px 0;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--platinum-dim);
+  max-width: 60ch;
+  line-height: 1.6;
+}
+.after-demo strong { color: var(--platinum); font-weight: 600; }
 
 /* HERO */
 .hero {

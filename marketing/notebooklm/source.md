@@ -32,9 +32,11 @@ DaemonCraft no recorta horas. Cambia qué pasa adentro de esas horas. Los papás
 - Es compañero, Game Master, arquitecto de mundos y guía.
 - Está programado con el **Soul `/me`** de la Vanguaria y las reglas de la APL (Agent Portability Layer) de DaemonMatrix.
 
-### El demo · Protector de la Luz
+### El demo de entrada · "Protector de la Luz"
 
-La sección demo es un juego de rol donde sos el **Protector de la Luz**. La Luz es la que enciende el Beacon al final de la aventura. En términos prácticos: la Luz es un **diamante adentro de un bloque de azufre**.
+> Importante: ser "Protector de la Luz" es **solo el demo de entrada**, no es el lore central del juego ni la identidad permanente del jugador. Es la primera aventura, después el daemon queda con vos y lo que hagas lo elegís vos.
+
+El demo es un juego de rol donde, durante esa primera aventura, sos el **Protector de la Luz**. La Luz es la que enciende el Beacon al final del demo. En términos prácticos: la Luz es un **diamante adentro de un bloque de azufre**.
 
 Hacés **4 pruebas** con tu agente, siguiendo la estructura de la *Proyección del Mito Personal*:
 

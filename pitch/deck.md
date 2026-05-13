@@ -40,9 +40,9 @@ Sabe quién sos. Te ayuda a crear historias. Genera mundos como un holodeck. Es 
 
 ---
 
-## Slide 5 · El demo · Protector de la Luz
+## Slide 5 · El demo de entrada
 
-Sos el Protector de la Luz. La Luz es un diamante adentro de un bloque de azufre. Al final encendés el Beacon.
+Tu primera aventura con tu daemon. Se llama *Protector de la Luz*. La Luz es un diamante adentro de un bloque de azufre. Al final encendés el Beacon.
 
 Hacés 4 pruebas con tu agente:
 

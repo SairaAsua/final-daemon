@@ -16,7 +16,7 @@ Empiecen por el reframe del screen-time. El problema nunca fue la pantalla — f
 Explorá DaemonCraft como juego sobre Minecraft. El daemon como compañero personal con memoria. Que es un mismo agente toda la vida — no un chatbot que olvida. Comparen con Roblox o Fortnite donde el "personaje" no te conoce.
 
 3. EL DEMO (3 min):
-Profundicen en el Protector de la Luz. El diamante en el bloque de azufre. Los zombies. Las 4 pruebas. La estructura de la Proyección del Mito Personal del psicólogo Julián de la Reta. El detalle de que cada partida es diferente porque el mito es tuyo. Pregunten en voz alta qué tiene de raro y de hermoso usar el Camino del Héroe como onboarding.
+Profundicen en el demo de entrada, que se llama Protector de la Luz. El diamante en el bloque de azufre. Los zombies. Las 4 pruebas. La estructura de la Proyección del Mito Personal del psicólogo Julián de la Reta. El detalle de que cada partida es diferente porque el mito es tuyo. Pregunten en voz alta qué tiene de raro y de hermoso usar el Camino del Héroe como onboarding. SUBRAYEN que esto es solo el demo de entrada — no es el lore del juego ni la identidad permanente del jugador. Después del demo, el daemon queda con vos y lo que hagas con él lo elegís vos.
 
 4. LA MÚSICA (2 min):
 Harmonic Beacon. Que no usa la escala temperada. Que viene de los ratios de la naturaleza. Que no es música ambiental — es un campo armónico de referencia. Que el cuerpo lo reconoce. AlterMundi tiene un sitio (harmonicbeacon.com) donde se puede entender más.

@@ -12,9 +12,11 @@ DaemonCraft es el juego. Es un videojuego sobre Minecraft donde tu agente te aco
 - Es guía. Tiene los poderes de un buen gestor de agentes.
 - Está programado con el [Soul de la Vanguaria](04_soul_vanguaria.md) y las reglas de la APL DaemonMatrix.
 
-## El demo · Protector de la Luz
+## El demo de entrada · "Protector de la Luz"
 
-La sección demo del juego es un juego de rol donde sos el Protector de la Luz. La Luz es la que enciende el Beacon al final de la aventura.
+> **Solo es el demo.** Ser Protector de la Luz no es parte del lore central de DaemonCraft ni la identidad permanente del jugador. Es cómo entrás. Después, el lore es lo que vos y tu daemon construyen.
+
+La sección demo del juego es un juego de rol donde, durante esa primera aventura, sos el Protector de la Luz. La Luz es la que enciende el Beacon al final del demo.
 
 En términos prácticos: la Luz es un diamante adentro de un bloque de azufre.
 
