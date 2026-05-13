@@ -51,6 +51,7 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 - [One-pager](pitch/one-pager.md)
 - [Deck (slide por slide)](pitch/deck.md)
 - [Mockups ASCII](pitch/mockups.md)
+- **🖥️ [Deck navegable HTML](pitch/deck/)** — `cd pitch/deck && python3 -m http.server 8773` · luego abrir http://localhost:8773 · flechas para navegar, F para fullscreen
 
 ## Marketing (`marketing/`)
 
@@ -60,6 +61,11 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 - [FAQ para papás](marketing/faq-papas.md)
 - [Invitación a comunidad beta](marketing/comunidad-beta.md)
 - [Social copy](marketing/social.md)
+- **🎙️ [NotebookLM · video y audio overview](marketing/notebooklm/)** — source + prompts para Video Overview, Audio Overview, Briefing Doc y Study Guide
+
+## Landing web (`web/`)
+
+- **🌐 [Landing HTML standalone](web/)** — `cd web && python3 -m http.server 8772` · luego abrir http://localhost:8772
 
 ## Investigación (`research/`)
 
