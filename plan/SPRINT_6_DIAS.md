@@ -4,6 +4,8 @@
 
 **Objetivo del sprint**: tener materiales sólidos para mostrar a inversores / lanzar campaña de crowdfunding.
 
+> **Estado real**: estamos en etapa bebé. El motor del alma existe, los bots corren, pero no hay app, no hay suscripción, no hay reportes. Este sprint es para producir **materiales de presentación**, no un producto terminado.
+
 > Este plan es ambicioso para 6 días. Si algo se escapa, **priorizar**: pitch deck + demo básico + números.
 
 ---
@@ -14,6 +16,7 @@
 - [ ] Definir las 4 pruebas del demo basadas en la *Proyección del Mito Personal* — issue [A3.1](https://github.com/SairaAsua/final-daemon/issues?q=A3.1).
 - [ ] Actualizar todos los documentos del repo con la información real del equipo, costos y estado — ver [docs/20 · Equipo](../docs/20_equipo.md).
 - [ ] Revisar el informe legal preliminar ([docs/21](../docs/21_legal_preliminar.md)) y marcar qué puntos necesitan abogado.
+- [ ] Validar precio ($30/mes) y costos ($10/mes tokens) con Nico — issue [F2.2](https://github.com/SairaAsua/final-daemon/issues?q=F2.2).
 
 **Responsable**: Saira + Eko (documentación).
 
@@ -54,8 +57,8 @@
 
 ## Día 5 — Negocio y números
 
-- [ ] Calcular costos reales: servidor Minecraft, tokens LLM, hosting app, infraestructura — issue [F2.3](https://github.com/SairaAsua/final-daemon/issues?q=F2.3).
-- [ ] Definir precio final de suscripción ($30 es propuesta inicial, validar con costos) — issue [F2.2](https://github.com/SairaAsua/final-daemon/issues?q=F2.2).
+- [ ] Calcular costos reales: servidor Minecraft, tokens LLM (~$10/mes), hosting app, infraestructura — issue [F2.3](https://github.com/SairaAsua/final-daemon/issues?q=F2.3).
+- [ ] Validar precio final de suscripción: **$30/mes** es la propuesta inicial (familiar, no por niño) — issue [F2.2](https://github.com/SairaAsua/final-daemon/issues?q=F2.2).
 - [ ] Proyección financiera básica (cuántos usuarios necesitamos para cubrir costos) — issue [F2.4](https://github.com/SairaAsua/final-daemon/issues?q=F2.4).
 - [ ] Preparar preguntas frecuentes para inversores.
 - [ ] Revisar estructura legal: ¿AlterMundi puede recibir inversión? ¿Necesita SRL? — issue [F1.1](https://github.com/SairaAsua/final-daemon/issues?q=F1.1) + [docs/21 sección 6](../docs/21_legal_preliminar.md).

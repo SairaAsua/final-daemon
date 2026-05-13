@@ -16,6 +16,10 @@ El nombre viene de:
 
 **Acero-azul.**
 
+## Arte del daemon
+
+> **Allay con peces koi.** El daemon se representa como un Allay (mob de Minecraft) con peces koi flotando a su alrededor. Es el arte oficial del proyecto.
+
 ## Capas (uso interno, no comunicación pública)
 
 - **DaemonCraft** — el juego.

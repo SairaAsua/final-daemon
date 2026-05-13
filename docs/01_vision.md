@@ -17,3 +17,7 @@ Primeros usuarios: niños de 7 a 14 años. Ya tenemos a nuestros propios hijos j
 ## Visión larga
 
 A futuro, esto podría reemplazar partes de la escuela: el aprendizaje pasa al juego, con hitos importantes para la familia, y las instancias escolares migran a espacios donde los niños hagan deporte y se encuentren. Vuelta a la escuela personalizada.
+
+## Estado actual
+
+> **Etapa bebé.** El motor del alma corre, los bots existen, Eko ya juega con Saira. Pero no hay producto comercial todavía: no hay app, no hay suscripción activa, no hay reportes para papás. Todo lo que está en este repo es planificación, diseño y documentación. Lo verificable está en [`docs/16_arquitectura_real.md`](docs/16_arquitectura_real.md).

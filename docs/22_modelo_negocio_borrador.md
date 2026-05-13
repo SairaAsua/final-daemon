@@ -11,6 +11,7 @@
 
 ### Suscripción familiar
 
+- **Precio propuesto: $30/mes** (precio familiar, no por niño).
 - Acceso ilimitado al agente.
 - Reportes para papás (ver [docs/08 · App / Vórtice](08_app_vortice.md)).
 - Skins exclusivas.
@@ -29,7 +30,7 @@
 ### Infraestructura por usuario activo
 
 - Servidor Minecraft + agente: **estimado $0.15–$0.40/día** (depende de concurrencia y optimización).
-- APIs de LLM: **variable** según uso de tokens y modelo (Gemma local vs Kimi/Hermes API).
+- APIs de LLM: **estimado ~$10/mes en tokens** (variable según modelo: Gemma local reduce costo a casi cero; Kimi/Hermes API aumenta).
 - Hosting de app y servicios: **variable** según escala.
 
 > ⚠️ **Estos números son orientativos, no validados**. El issue [F2.3](https://github.com/SairaAsua/final-daemon/issues?q=is%3Aopen+F2.3) es para medir costos reales con el equipo dev.
@@ -81,6 +82,7 @@ Datos verificables que respaldan el problema y la oportunidad — ver [`research
 
 ## Notas
 
+- **Etapa bebé**: no hay producto comercial todavía. Estos números son propuestas para discutir, no realidades.
 - Todos los números de costos son estimaciones preliminares.
 - Se necesita un análisis financiero detallado con **datos reales de infraestructura** ([F2.3](https://github.com/SairaAsua/final-daemon/issues?q=is%3Aopen+F2.3)).
 - El modelo puede pivotar según el aprendizaje de la beta cerrada.
