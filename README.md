@@ -44,6 +44,9 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 - [16 · Arquitectura real (paths, stack, lo que existe)](docs/16_arquitectura_real.md)
 - [17 · Personajes y skills](docs/17_personajes_y_skills.md)
 - [19 · Relación con material oficial paralelo](docs/19_relacion_con_material_oficial.md) — divergencias conocidas entre `final-daemon` y el material oficial en `daemonmatrix/DaemonCraft/`
+- [20 · Equipo](docs/20_equipo.md) — personas reales + entidad legal AlterMundi
+- [21 · Informe legal preliminar](docs/21_legal_preliminar.md) — mapa de riesgos + recomendaciones
+- [22 · Modelo de negocio · borrador](docs/22_modelo_negocio_borrador.md) — freemium + suscripción familiar, costos a validar
 
 ---
 
@@ -76,6 +79,7 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 ## Plan de implementación (`plan/`)
 
 - [Plan completo](plan/PLAN.md) — 21 áreas, 94 tareas, owners y prioridades
+- [Sprint de 6 días · plan táctico](plan/SPRINT_6_DIAS.md) — para producir entregables si hay urgencia
 - [Índice rápido](plan/README.md) — todas las vistas, filtros y enlaces directos
 - **🚀 [Pre-beta — destrabar la beta](https://github.com/SairaAsua/final-daemon/milestone/1)** · 25 tareas urgentes
 - **🌱 [Beta — construir y validar](https://github.com/SairaAsua/final-daemon/milestone/2)** · 44 tareas
