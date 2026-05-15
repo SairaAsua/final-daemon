@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ISA-95 Operations Request -> Task Request",
+  "description": "Solicitud de operacion mapeada desde Operations Request de ISA-95",
+  "type": "object",
+  "required": ["request_id", "request_type", "priority"],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "description": "ID unico del job"
+    },
+    "request_type": {
+      "type": "string",
+      "enum": ["build", "debug", "narrative", "research", "review", "rebirth", "skill_update", "memory_ingest", "deploy"],
+      "description": "Tipo de tarea a ejecutar"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "normal", "high", "critical"]
+    },
+    "submitted_by": {
+      "type": "string",
+      "description": "Usuario o agente que solicita la tarea"
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "personnel_requirements": {
+      "type": "object",
+      "properties": {
+        "agent_id": { "type": "string", "description": "Agente especifico requerido (opcional)" },
+        "agent_class": { "type": "string", "description": "Clase de agente aceptable" },
+        "min_capabilities": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "equipment_requirements": {
+      "type": "object",
+      "properties": {
+        "provider_id": { "type": "string" },
+        "provider_type": { "type": "string", "enum": ["cloud_api", "local_gpu", "edge_tpu", "any"] },
+        "min_context": { "type": "integer" }
+      }
+    },
+    "material_requirements": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "IDs de skills/memorias requeridas"
+    },
+    "quality_parameters": {
+      "type": "object",
+      "description": "Criterios de aceptacion",
+      "properties": {
+        "max_tokens": { "type": "integer" },
+        "max_latency_ms": { "type": "integer" },
+        "requires_human_approval": { "type": "boolean" },
+        "success_criteria": { "type": "string" },
+        "test_cases": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "description": "Datos especificos de la tarea (prompt, config, etc.)"
+    }
+  }
+}

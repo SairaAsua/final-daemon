@@ -2,6 +2,16 @@
 
 [**PLAN completo →**](PLAN.md)
 
+## 📊 Plan técnico · DaemonMatrix APL
+
+Nuevo: plan de implementación técnico para la capa de portabilidad de agentes (APL), con asignación de humanos y agentes, timeline por fase, y flujo Git.
+
+- [**DAEMONMATRIX_TECHNICAL_PLAN.md**](DAEMONMATRIX_TECHNICAL_PLAN.md) — documento maestro (10 áreas, 76 tareas, 5 fases)
+- [**DAEMONMATRIX_TECHNICAL_PLAN.html**](DAEMONMATRIX_TECHNICAL_PLAN.html) — dashboard navegable
+- Levantar dashboard: `cd plan && python3 -m http.server 8769` · abrir http://localhost:8769
+
+---
+
 ## 🎯 Las 3 fases (tipo Trello)
 
 Cada milestone es una vista propia tipo tablero con barra de progreso. **Esta es la forma cómoda de ver todo.**

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DaemonMatrix ISA-95 Dashboard</title>
+<style>
+  :root {
+    --bg: #0b0c10;
+    --panel: #14151a;
+    --panel2: #1c1d24;
+    --accent: #00e5ff;
+    --accent2: #00b8d4;
+    --text: #e0e0e0;
+    --muted: #888;
+    --border: #2a2b35;
+    --ok: #00e676;
+    --warn: #ffea00;
+    --crit: #ff1744;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--panel);
+  }
+  header h1 { font-size: 1.3rem; letter-spacing: 0.5px; }
+  header .subtitle { color: var(--muted); font-size: 0.85rem; }
+  .badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+  .container { padding: 1rem 1.5rem; display: grid; grid-template-columns: 320px 1fr; gap: 1rem; }
+  @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+  /* Pyramid */
+  .pyramid-wrap {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    position: sticky;
+    top: 1rem;
+    height: fit-content;
+  }
+  .pyramid-wrap h2 { font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--accent); }
+  .pyramid { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+  .level {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+    border: 1px solid transparent;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .level:hover { transform: translateX(4px); }
+  .level.active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(0,229,255,0.15); }
+  .l4 { background: #1a237e; color: #c5cae9; }
+  .l3 { background: #0d47a1; color: #bbdefb; }
+  .l2 { background: #006064; color: #b2ebf2; }
+  .l1 { background: #1b5e20; color: #c8e6c9; }
+  .l0 { background: #4a148c; color: #e1bee7; }
+  .level small { font-weight: 400; opacity: 0.8; font-size: 0.7rem; }
+  .level .status-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--ok); display: inline-block; margin-left: 6px;
+  }
+
+  /* Main panel */
+  .main { display: flex; flex-direction: column; gap: 1rem; }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .panel h3 { font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+  }
+  .kpi {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem;
+    text-align: center;
+  }
+  .kpi .value { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+  .kpi .label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; margin-top: 0.2rem; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 0.5rem; }
+  th, td { padding: 0.45rem 0.6rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.5px; }
+  tr:hover td { background: rgba(255,255,255,0.03); }
+  .tag {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+  }
+  .tag.ok { border-color: var(--ok); color: var(--ok); }
+  .tag.warn { border-color: var(--warn); color: var(--warn); }
+  .tag.crit { border-color: var(--crit); color: var(--crit); }
+
+  /* Alert bar */
+  .alert-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .alert-chip {
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    background: var(--panel2);
+    border-left: 3px solid var(--warn);
+  }
+  .alert-chip.crit { border-left-color: var(--crit); }
+  .alert-chip.info { border-left-color: var(--accent); }
+
+  .tab-btn.active { background: var(--accent) !important; color: #000 !important; font-weight: 700; }
+
+  .hidden { display: none; }
+  .fade-in { animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(6px);} to { opacity:1; transform: translateY(0);} }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>DaemonMatrix <span style="color:var(--accent)">ISA-95</span> Control Center</h1>
+    <div class="subtitle">Piramide de Automatizacion Industrial aplicada a Ecosistemas Multi-Agente</div>
+  </div>
+  <div>
+    <span class="badge">Live</span>
+    <span class="badge" style="background:var(--panel2);color:var(--text);border:1px solid var(--border)">v1.0</span>
+  </div>
+</header>
+
+<div class="container">
+  <aside class="pyramid-wrap">
+    <h2>Niveles ISA-95</h2>
+    <div class="pyramid">
+      <div class="level l4" data-level="L4" onclick="selectLevel('L4')">
+        <span>L4 <small>Agent ERP</small></span>
+        <span class="status-dot"></span>
+      </div>
+      <div class="level l3" data-level="L3" onclick="selectLevel('L3')">
+        <span>L3 <small>Agent Execution</small></span>
+        <span class="status-dot"></span>
+      </div>
+      <div class="level l2" data-level="L2" onclick="selectLevel('L2')">
+        <span>L2 <small>Observability</small></span>
+        <span class="status-dot"></span>
+      </div>
+      <div class="level l1" data-level="L1" onclick="selectLevel('L1')">
+        <span>L1 <small>Agent Runtime</small></span>
+        <span class="status-dot"></span>
+      </div>
+      <div class="level l0" data-level="L0" onclick="selectLevel('L0')">
+        <span>L0 <small>Embodiments</small></span>
+        <span class="status-dot"></span>
+      </div>
+    </div>
+
+    <div style="margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border);">
+      <div style="font-size:0.75rem; color:var(--muted); margin-bottom:0.4rem">Vistas</div>
+      <div style="display:flex;gap:0.5rem">
+        <button id="tab-levels" class="tab-btn active" onclick="switchView('levels')" style="flex:1;padding:0.4rem;border-radius:4px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:0.75rem;cursor:pointer">Niveles</button>
+        <button id="tab-humans" class="tab-btn" onclick="switchView('humans')" style="flex:1;padding:0.4rem;border-radius:4px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:0.75rem;cursor:pointer">Humanos</button>
+      </div>
+    </div>
+
+    <div style="margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border);">
+      <div style="font-size:0.75rem; color:var(--muted); margin-bottom:0.4rem">Resumen General</div>
+      <div class="kpi-grid" style="grid-template-columns: 1fr 1fr; gap:0.5rem">
+        <div class="kpi" style="padding:0.5rem"><div class="value" id="kpi-agents">-</div><div class="label">Agentes</div></div>
+        <div class="kpi" style="padding:0.5rem"><div class="value" id="kpi-tasks">-</div><div class="label">Tareas</div></div>
+        <div class="kpi" style="padding:0.5rem"><div class="value" id="kpi-alerts">-</div><div class="label">Alertas</div></div>
+        <div class="kpi" style="padding:0.5rem"><div class="value" id="kpi-cost">-</div><div class="label">Costo hoy</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main-content">
+    <!-- Dynamic content loaded here -->
+  </main>
+</div>
+
+<script>
+let mapping = {};
+let registry = {};
+let tasks = [];
+let alerts = [];
+let humanLeads = [];
+let currentLevel = 'L4';
+let currentView = 'levels';
+
+async function loadData() {
+  try {
+    const [m, r, t, a, h] = await Promise.all([
+      fetch('../isa95-mapping.json').then(r => r.json()).catch(() => ({})),
+      fetch('../agent-registry.json').then(r => r.json()).catch(() => ({})),
+      fetch('../task-mock.json').then(r => r.json()).catch(() => ({tasks:[]})),
+      fetch('../alert-mock.json').then(r => r.json()).catch(() => ({alerts:[]})),
+      fetch('../human-leads.json').then(r => r.json()).catch(() => ({leads:[]}))
+    ]);
+    mapping = m;
+    registry = r;
+    tasks = t.tasks || [];
+    alerts = a.alerts || [];
+    humanLeads = h.leads || [];
+  } catch(e) {
+    console.warn('Failed to load some data', e);
+  }
+  renderSummary();
+  selectLevel('L4');
+}
+
+function switchView(view) {
+  currentView = view;
+  document.getElementById('tab-levels').classList.toggle('active', view === 'levels');
+  document.getElementById('tab-humans').classList.toggle('active', view === 'humans');
+  if (view === 'levels') {
+    selectLevel(currentLevel);
+  } else {
+    renderHumans();
+  }
+}
+
+function renderHumans() {
+  const main = document.getElementById('main-content');
+  let html = `
+  <div class="panel fade-in">
+    <h3>Organizacion Humana bajo ISA-95</h3>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">
+      Cada humano (H*) es lead de uno o mas niveles. Su rol es garantizar que su nivel funcione y que la comunicacion con niveles adyacentes sea fluida.
+    </p>
+  </div>
+  `;
+
+  const levelColors = {L4:'#1a237e',L3:'#0d47a1',L2:'#006064',L1:'#1b5e20',L0:'#4a148c'};
+
+  humanLeads.forEach(h => {
+    const levelTags = h.levels.map(l => `<span class="badge" style="background:${levelColors[l]||'var(--accent)'};margin-right:0.3rem">${l}</span>`).join('');
+    html += `
+    <div class="panel fade-in">
+      <h3><span class="badge">${h.id}</span> ${h.name} — ${h.role}</h3>
+      <div style="margin-bottom:0.5rem">${levelTags} <span style="font-size:0.75rem;color:var(--muted)">${h.scope}</span></div>
+      <div style="font-size:0.8rem;margin-bottom:0.5rem"><strong>Accountable for:</strong></div>
+      <ul style="font-size:0.8rem;color:var(--text);list-style:none;padding:0;margin-bottom:0.75rem">
+        ${h.accountable_for.map(a => `<li style="padding:0.2rem 0;border-bottom:1px solid var(--border)">${a}</li>`).join('')}
+      </ul>
+      <div style="font-size:0.8rem"><strong>Artefactos:</strong></div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.4rem">
+        ${h.responsible_objects.map(o => `<span class="tag">${o}</span>`).join('')}
+      </div>
+    </div>
+    `;
+  });
+
+  main.innerHTML = html;
+}
+
+function renderSummary() {
+  const agents = registry.agents ? registry.agents.length : 0;
+  document.getElementById('kpi-agents').textContent = agents;
+  document.getElementById('kpi-tasks').textContent = tasks.length;
+  const critAlerts = alerts.filter(a => a.severity === 'critical' || a.severity === 'emergency').length;
+  document.getElementById('kpi-alerts').textContent = critAlerts;
+  document.getElementById('kpi-alerts').style.color = critAlerts > 0 ? 'var(--crit)' : 'var(--ok)';
+  document.getElementById('kpi-cost').textContent = '$' + (tasks.reduce((s,t)=>(s+(t.actual_cost_usd||0)),0)).toFixed(2);
+}
+
+function selectLevel(level) {
+  currentLevel = level;
+  document.querySelectorAll('.level').forEach(el => el.classList.toggle('active', el.dataset.level === level));
+  const l = mapping.levels ? mapping.levels[level] : null;
+  renderLevel(level, l);
+}
+
+function renderLevel(level, l) {
+  const main = document.getElementById('main-content');
+  const title = l ? l.agent_name : level;
+  const desc = l ? l.description : '';
+  const isa = l ? l.isa95_name : '';
+
+  let html = `
+  <div class="panel fade-in">
+    <h3><span class="badge">${level}</span> ${title}</h3>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">
+      <strong>ISA-95:</strong> ${isa}<br>${desc}
+    </p>
+    <div class="kpi-grid">
+      ${renderKPIs(level)}
+    </div>
+  </div>
+
+  <div class="panel fade-in">
+    <h3>Funciones</h3>
+    <ul style="font-size:0.8rem;color:var(--text);list-style:none;padding:0">
+      ${(l && l.functions ? l.functions : []).map(f => `<li style="padding:0.3rem 0;border-bottom:1px solid var(--border)">${f}</li>`).join('')}
+    </ul>
+  </div>
+
+  <div class="panel fade-in">
+    <h3>Objetos ISA-95 Mapeados</h3>
+    <table>
+      <thead><tr><th>Objeto ISA-95</th><th>Equivalente Agentic</th><th>Estado</th></tr></thead>
+      <tbody>
+        ${renderObjectRows(level)}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel fade-in">
+    <h3>Artefactos</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+      ${(l && l.artifacts ? l.artifacts : []).map(a => `<span class="tag">${a}</span>`).join('')}
+    </div>
+  </div>
+
+  ${renderExtraPanel(level)}
+  `;
+
+  main.innerHTML = html;
+}
+
+function renderKPIs(level) {
+  if (level === 'L4') {
+    const agents = registry.agents ? registry.agents.length : 0;
+    const skills = registry.skills ? registry.skills.length : 0;
+    const active = registry.agents ? registry.agents.filter(a => a.status === 'active').length : 0;
+    return `
+      <div class="kpi"><div class="value">${agents}</div><div class="label">Agentes Registrados</div></div>
+      <div class="kpi"><div class="value">${active}</div><div class="label">Activos</div></div>
+      <div class="kpi"><div class="value">${skills}</div><div class="label">Skills</div></div>
+      <div class="kpi"><div class="value">${(registry.tenants||[]).length}</div><div class="label">Tenants</div></div>
+    `;
+  }
+  if (level === 'L3') {
+    const pending = tasks.filter(t => t.status === 'pending').length;
+    const running = tasks.filter(t => t.status === 'running').length;
+    const completed = tasks.filter(t => t.status === 'completed').length;
+    const failed = tasks.filter(t => t.status === 'failed').length;
+    return `
+      <div class="kpi"><div class="value">${pending}</div><div class="label">Pendientes</div></div>
+      <div class="kpi"><div class="value">${running}</div><div class="label">Ejecutando</div></div>
+      <div class="kpi"><div class="value">${completed}</div><div class="label">Completadas</div></div>
+      <div class="kpi"><div class="value" style="color:${failed>0?'var(--crit)':'var(--ok)'}">${failed}</div><div class="label">Fallidas</div></div>
+    `;
+  }
+  if (level === 'L2') {
+    const total = alerts.length;
+    const crit = alerts.filter(a => a.severity === 'critical' || a.severity === 'emergency').length;
+    const warn = alerts.filter(a => a.severity === 'warning').length;
+    return `
+      <div class="kpi"><div class="value">${total}</div><div class="label">Alertas Total</div></div>
+      <div class="kpi"><div class="value" style="color:var(--crit)">${crit}</div><div class="label">Criticas</div></div>
+      <div class="kpi"><div class="value" style="color:var(--warn)">${warn}</div><div class="label">Advertencias</div></div>
+      <div class="kpi"><div class="value">${(Math.random()*99+1).toFixed(1)}%</div><div class="label">Uptime</div></div>
+    `;
+  }
+  if (level === 'L1') {
+    return `
+      <div class="kpi"><div class="value">${(Math.random()*50+10).toFixed(0)}ms</div><div class="label">Latencia avg</div></div>
+      <div class="kpi"><div class="value">${(Math.random()*500+100).toFixed(0)}</div><div class="label">Tokens/s</div></div>
+      <div class="kpi"><div class="value">${(Math.random()*80+10).toFixed(0)}%</div><div class="label">CPU Load</div></div>
+      <div class="kpi"><div class="value">${(Math.random()*12+4).toFixed(1)}GB</div><div class="label">VRAM Used</div></div>
+    `;
+  }
+  if (level === 'L0') {
+    const embodiments = [
+      {name:'Minecraft Bot', status:'online'},
+      {name:'CLI Agent', status:'online'},
+      {name:'Hardware IoT', status:'offline'}
+    ];
+    const online = embodiments.filter(e=>e.status==='online').length;
+    return `
+      <div class="kpi"><div class="value">${embodiments.length}</div><div class="label">Embodiments</div></div>
+      <div class="kpi"><div class="value" style="color:var(--ok)">${online}</div><div class="label">Online</div></div>
+      <div class="kpi"><div class="value">${embodiments.length-online}</div><div class="label">Offline</div></div>
+      <div class="kpi"><div class="value">0</div><div class="label">Errores</div></div>
+    `;
+  }
+  return '';
+}
+
+function renderObjectRows(level) {
+  const rows = {
+    L4: [
+      {obj:'Personnel', eq:'Agent Registry', st:'ok'},
+      {obj:'Equipment', eq:'Provider Catalog', st:'ok'},
+      {obj:'Material', eq:'Skill + Memory Inventory', st:'ok'},
+      {obj:'Production Schedule', eq:'Sprint / Campaign Plans', st:'ok'}
+    ],
+    L3: [
+      {obj:'Operations Request', eq:'Task Request Queue', st:'ok'},
+      {obj:'Work Order', eq:'Assigned Job', st:'ok'},
+      {obj:'Operations Response', eq:'Task Response', st:'ok'}
+    ],
+    L2: [
+      {obj:'Event', eq:'Telemetry Stream', st:'ok'},
+      {obj:'Alarm', eq:'Alert System', st: alerts.some(a=>a.severity==='critical')?'crit':'ok'}
+    ],
+    L1: [
+      {obj:'Device', eq:'Agent Runtime Process', st:'ok'},
+      {obj:'Control Module', eq:'State Machine (LangGraph)', st:'ok'},
+      {obj:'Unit', eq:'Agent Instance', st:'ok'}
+    ],
+    L0: [
+      {obj:'Sensor', eq:'Input Interface (chat, events)', st:'ok'},
+      {obj:'Actuator', eq:'Output Interface (actions)', st:'ok'},
+      {obj:'Process Cell', eq:'Minecraft World / Terminal', st:'ok'}
+    ]
+  };
+  return (rows[level]||[]).map(r => `
+    <tr>
+      <td>${r.obj}</td>
+      <td>${r.eq}</td>
+      <td><span class="tag ${r.st}">${r.st==='ok'?'OK':r.st==='crit'?'CRIT':'WARN'}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderExtraPanel(level) {
+  if (level === 'L4' && registry.agents) {
+    return `
+    <div class="panel fade-in">
+      <h3>Agentes Registrados</h3>
+      <table>
+        <thead><tr><th>ID</th><th>Clase</th><th>Modelo</th><th>Estado</th><th>Cost Tier</th></tr></thead>
+        <tbody>
+          ${registry.agents.map(a => `
+            <tr>
+              <td><strong>${a.id}</strong></td>
+              <td>${a.agent_class||'-'}</td>
+              <td>${a.model||'-'}</td>
+              <td><span class="tag ${a.health==='healthy'?'ok':a.health==='degraded'?'warn':'crit'}">${a.health||a.status||'unknown'}</span></td>
+              <td>${a.cost_tier||'-'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  }
+  if (level === 'L3' && tasks.length) {
+    return `
+    <div class="panel fade-in">
+      <h3>Cola de Tareas</h3>
+      <table>
+        <thead><tr><th>ID</th><th>Tipo</th><th>Agente</th><th>Estado</th><th>Prioridad</th><th>Costo</th></tr></thead>
+        <tbody>
+          ${tasks.slice(0,10).map(t => `
+            <tr>
+              <td>${t.id||t.entry_id}</td>
+              <td>${t.type||t.request_type||'-'}</td>
+              <td>${t.assigned_agent||t.personnel_id||'-'}</td>
+              <td><span class="tag ${t.status==='completed'?'ok':t.status==='failed'?'crit':'warn'}">${t.status}</span></td>
+              <td>${t.priority||'-'}</td>
+              <td>$${(t.actual_cost_usd||0).toFixed(3)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  }
+  if (level === 'L2' && alerts.length) {
+    return `
+    <div class="panel fade-in">
+      <h3>Alertas Activas</h3>
+      <div class="alert-bar">
+        ${alerts.slice(0,8).map(a => `
+          <div class="alert-chip ${a.severity==='critical'?'crit':a.severity==='info'?'info':''}">
+            <strong>${a.category||a.source_level}</strong> ${a.message}
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+  }
+  return '';
+}
+
+loadData();
+</script>
+</body>
+</html>

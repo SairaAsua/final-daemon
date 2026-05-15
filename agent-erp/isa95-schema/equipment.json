@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ISA-95 Equipment -> Compute Provider",
+  "description": "Proveedor de computo/modelo mapeado desde el objeto Equipment de ISA-95",
+  "type": "object",
+  "required": ["equipment_id", "equipment_class", "status"],
+  "properties": {
+    "equipment_id": {
+      "type": "string",
+      "description": "Identificador del proveedor (kimi-api, ollama-gemma4, minimax-api, etc.)"
+    },
+    "equipment_class": {
+      "type": "string",
+      "enum": ["cloud_api", "local_gpu", "edge_tpu", "local_cpu", "hybrid_cluster"],
+      "description": "Tipo de infraestructura"
+    },
+    "equipment_name": {
+      "type": "string",
+      "description": "Nombre descriptivo del proveedor"
+    },
+    "description": {
+      "type": "string",
+      "description": "Descripcion de capacidades y uso"
+    },
+    "location": {
+      "type": "string",
+      "description": "Endpoint URL, IP o path local"
+    },
+    "capacity": {
+      "type": "object",
+      "properties": {
+        "vram_gb": { "type": "number" },
+        "max_context_tokens": { "type": "integer" },
+        "max_throughput_tps": { "type": "number", "description": "Tokens por segundo" },
+        "max_concurrent_requests": { "type": "integer" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["operational", "degraded", "offline", "maintenance", "unknown"]
+    },
+    "cost": {
+      "type": "object",
+      "properties": {
+        "unit": { "type": "string", "enum": ["per_1m_tokens", "per_hour", "per_request", "free"] },
+        "input_price": { "type": "number" },
+        "output_price": { "type": "number" },
+        "currency": { "type": "string", "default": "USD" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Features soportados (vision, function_calling, json_mode, etc.)"
+    },
+    "health": {
+      "type": "object",
+      "properties": {
+        "last_check": { "type": "string", "format": "date-time" },
+        "latency_ms": { "type": "number" },
+        "error_rate": { "type": "number" },
+        "uptime_percent": { "type": "number" }
+      }
+    }
+  }
+}

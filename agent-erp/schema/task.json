@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task",
+  "description": "DocType-like schema for a task / work order assigned to an agent",
+  "type": "object",
+  "required": ["id", "title", "status"],
+  "properties": {
+    "id": {"type": "string"},
+    "title": {"type": "string"},
+    "description": {"type": "string"},
+    "status": {"type": "string", "enum": ["backlog", "todo", "in_progress", "review", "done", "cancelled"]},
+    "priority": {"type": "string", "enum": ["P0", "P1", "P2", "P3"]},
+    "assignee": {"type": ["string", "null"], "description": "agent_id or null"},
+    "skills_required": {"type": "array", "items": {"type": "string"}},
+    "milestone": {"type": ["string", "null"], "enum": ["pre-beta", "beta", "post-beta", null]},
+    "labels": {"type": "array", "items": {"type": "string"}},
+    "created_at": {"type": "string", "format": "date"},
+    "due_date": {"type": ["string", "null"], "format": "date"},
+    "completed_at": {"type": ["string", "null"], "format": "date"},
+    "cost_estimate_usd": {"type": ["number", "null"]},
+    "cost_actual_usd": {"type": ["number", "null"]},
+    "github_issue_url": {"type": ["string", "null"]}
+  }
+}

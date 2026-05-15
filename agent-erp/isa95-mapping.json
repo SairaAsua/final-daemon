@@ -1,0 +1,233 @@
+{
+  "standard": "ANSI/ISA-95 (IEC 62264)",
+  "version": "1.0",
+  "date": "2026-05-15",
+  "project": "DaemonMatrix",
+  "levels": {
+    "L4": {
+      "isa95_name": "Enterprise Resource Planning (ERP)",
+      "agent_name": "Agent ERP",
+      "description": "Planificacion estrategica, finanzas, inventario global, catalogo maestro",
+      "functions": [
+        "Strategic planning of agent campaigns",
+        "Cost tracking per agent / task / tenant",
+        "Global inventory of skills, memories, configs",
+        "Master data management (registry, profiles, worlds)"
+      ],
+      "objects": ["Personnel", "Equipment", "Material", "Production Schedule"],
+      "artifacts": [
+        "agent-erp/agent-registry.json",
+        "agent-erp/skill-catalog.json",
+        "agent-erp/memory-inventory.json",
+        "agent-erp/cost-ledger.md",
+        "agent-erp/workflow-registry.json"
+      ]
+    },
+    "L3": {
+      "isa95_name": "Manufacturing Execution System (MES)",
+      "agent_name": "Agent Execution System (AES)",
+      "description": "Ejecucion de tareas, control de calidad, asignacion de agentes, seguimiento",
+      "functions": [
+        "Task queue scheduling with priorities and dependencies",
+        "Agent dispatching based on skills and load",
+        "Output validation and retry logic",
+        "Agent lifecycle management (spawn, health, rebirth, retire)",
+        "Memory and skill allocation per task"
+      ],
+      "objects": ["Operations Request", "Operations Response", "Work Order"],
+      "artifacts": [
+        "agent-erp/schema/task.json",
+        "task-queue.db",
+        "workflow-engine/"
+      ]
+    },
+    "L2": {
+      "isa95_name": "Supervisory Control and Data Acquisition (SCADA)",
+      "agent_name": "Agent Observability",
+      "description": "Monitoreo en tiempo real, alarmas, metricas, visualizacion de procesos",
+      "functions": [
+        "Real-time dashboards (agent status, queue depth, active tasks)",
+        "Alerting and escalation (offline, budget, error spikes)",
+        "Session replay and decision trails",
+        "Metrics collection (tokens, latency, cost, memory)",
+        "Historical trending and anomaly detection"
+      ],
+      "objects": ["Event", "Alarm", "Historical Data"],
+      "artifacts": [
+        "agent-erp/dashboard/index.html",
+        "agent-erp/isa95-dashboard/index.html",
+        "alert-system/"
+      ]
+    },
+    "L1": {
+      "isa95_name": "Programmable Logic Controller (PLC)",
+      "agent_name": "Agent Runtime",
+      "description": "Loop de ejecucion del agente, maquinas de estado, orquestacion de herramientas",
+      "functions": [
+        "Observe > Think > Act > Remember loop",
+        "State machines (LangGraph-style)",
+        "Tool calling and API invocation",
+        "Permission checks and sandbox enforcement",
+        "Local memory caching"
+      ],
+      "objects": ["Device", "Control Module", "Unit"],
+      "artifacts": [
+        "hermes-agent runtime",
+        "mineflayer runtime",
+        "SOUL.md + MEMORY.md profile"
+      ]
+    },
+    "L0": {
+      "isa95_name": "Physical Process",
+      "agent_name": "Embodiments",
+      "description": "Cuerpos y sensores-actuadores donde el agente se manifiesta",
+      "functions": [
+        "Sensory input: chat, voice, Minecraft events, webhooks",
+        "Motor output: text, voice, Minecraft actions, file writes",
+        "Hardware embodiment: 3D printer, IoT, plush toy"
+      ],
+      "objects": ["Sensor", "Actuator", "Process Cell"],
+      "artifacts": [
+        "Minecraft bot (mineflayer)",
+        "CLI agent (hermes-agent)",
+        "Hardware integrations"
+      ]
+    }
+  },
+  "object_mapping": {
+    "Personnel": {
+      "isa95_definition": "Person or group of people who perform work",
+      "agent_equivalent": "Agent",
+      "attributes": {
+        "personnel_id": "agent_id",
+        "personnel_class": "agent_class",
+        "personnel_name": "display_name",
+        "description": "soul_narrative",
+        "status": "status (active/spawning/offline/retired)",
+        "capabilities": "skills_available",
+        "qualifications": "model_provider_cost_tier"
+      }
+    },
+    "Equipment": {
+      "isa95_definition": "Physical asset that performs work or provides capability",
+      "agent_equivalent": "Compute Provider / Model",
+      "attributes": {
+        "equipment_id": "provider_id",
+        "equipment_class": "provider_type (cloud_api/local_gpu/edge_tpu)",
+        "location": "endpoint_url",
+        "capacity": "vram_max_context_throughput",
+        "status": "operational_status"
+      }
+    },
+    "Material": {
+      "isa95_definition": "Substance or item used in production",
+      "agent_equivalent": "Skill / Memory / Data",
+      "attributes": {
+        "material_id": "skill_id_or_memory_id",
+        "material_class": "type (procedural/narrative/config/data)",
+        "description": "purpose_and_usage",
+        "version": "semver",
+        "used_by": "agent_list"
+      }
+    },
+    "ProductionSchedule": {
+      "isa95_definition": "Plan for production over time",
+      "agent_equivalent": "Task Schedule / Sprint Plan",
+      "attributes": {
+        "schedule_id": "sprint_or_campaign_id",
+        "entry_id": "task_id",
+        "personnel": "assigned_agent",
+        "equipment": "assigned_provider",
+        "material": "required_skills",
+        "start_time": "start_timestamp",
+        "end_time": "end_timestamp",
+        "status": "pending/running/completed/failed"
+      }
+    },
+    "OperationsRequest": {
+      "isa95_definition": "Request to perform an operation",
+      "agent_equivalent": "Task Request / Job",
+      "attributes": {
+        "request_id": "job_id",
+        "request_type": "task_type (build/debug/narrative/research)",
+        "priority": "low/normal/high/critical",
+        "personnel_requirements": "agent_or_class_required",
+        "equipment_requirements": "provider_or_min_capacity",
+        "material_requirements": "skills_needed",
+        "quality_parameters": "acceptance_criteria"
+      }
+    }
+  },
+  "integration_rules": [
+    "Communication only between adjacent levels",
+    "All inter-level messages use standardized objects",
+    "Master data lives at L4 and propagates downward",
+    "Quality gates at L3 before delivery to L4 or user",
+    "Every runtime (L1) must emit minimum telemetry"
+  ],
+  "anti_patterns": [
+    "Bypassing levels (L0 talking directly to L4)",
+    "No master data (each level keeps its own agent list)",
+    "Missing AES (ad-hoc task assignment without tracking)",
+    "Missing SCADA (failures discovered too late)",
+    "Tight coupling (direct API calls instead of object messages)"
+  ],
+  "human_leads": {
+    "H1": {
+      "name": "Saira",
+      "role": "Product Owner",
+      "levels": ["L4"],
+      "scope": "Transversal — todas las areas",
+      "accountable_for": ["Strategic planning", "Master data approval", "Branding", "Agent retirement/spawn"],
+      "responsible_objects": ["agent-registry.json", "skill-catalog.json", "cost-ledger.md", "production-schedules"]
+    },
+    "H2": {
+      "name": "Nico",
+      "role": "Arquitecto APL, Core, Bridge, Embodiment",
+      "levels": ["L1", "L0"],
+      "scope": "Runtime principal y embodiments fisicos",
+      "accountable_for": ["hermes-agent runtime", "APL architecture", "Sandboxing", "Physical embodiments (IoT, hardware)"],
+      "responsible_objects": ["hermes-agent", "bridge-code", "device-schemas"]
+    },
+    "H3": {
+      "name": "Mariano",
+      "role": "Memoria, HMK, HIT, IA",
+      "levels": ["L1"],
+      "scope": "Subsistema de memoria persistente",
+      "accountable_for": ["hermes-memory-kit", "library.db schema", "Embedding pipeline", "Memory integrity"],
+      "responsible_objects": ["library.db", "embed_verify.py", "memoryctl.py", "continuityctl.py"]
+    },
+    "H4": {
+      "name": "Julian",
+      "role": "Psicologia, Soul Engine, Demo",
+      "levels": ["L4", "L3", "L1", "L0"],
+      "scope": "Transversal — calidad psicologica de agentes",
+      "accountable_for": ["Human Design profiles", "SOUL coherence", "Demo validation", "Shadow/light mapping"],
+      "responsible_objects": ["SOUL.md templates", "HD profiles", "demo-scripts"]
+    },
+    "H5": {
+      "name": "Anabella",
+      "role": "Bot Framework, Minecraft",
+      "levels": ["L3", "L0"],
+      "scope": "Framework de bots y embodiment Minecraft",
+      "accountable_for": ["Mineflayer integration", "Bot lifecycle", "Minecraft skills", "Building blueprints"],
+      "responsible_objects": ["DaemonCraft-minecraft", "mineflayer-plugins", "minecraft-skills"]
+    },
+    "H6": {
+      "name": "Federico",
+      "role": "Autoresearch, Arquitectura, Sonido, Backend, Orchestration",
+      "levels": ["L3"],
+      "scope": "Agent Execution System — corazon operativo",
+      "accountable_for": ["Task queue", "Workflow engine", "Backend APIs", "Output validation", "Sound systems"],
+      "responsible_objects": ["task-queue.db", "workflow-engine", "backend-apis", "autoresearch-pipeline"]
+    },
+    "H8": {
+      "name": "Jeremias",
+      "role": "Infra, Security, Observability",
+      "levels": ["L2"],
+      "scope": "SCADA/HMI + infraestructura fisica",
+      "accountable_for": ["Dashboards", "Alerting", "Infra", "Security hardening", "Uptime"],
+      "responsible_objects": ["isa95-dashboard", "alert-system", "infra-as-code", "security-policies"]
+    }
+  }
+}

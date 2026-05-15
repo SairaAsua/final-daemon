@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "workflows": [
+    {
+      "id": "rebirth-sync",
+      "name": "Rebirth Sync",
+      "description": "Sincronización del estado portable del agente tras cambio de sesión o modelo.",
+      "trigger": ["manual", "cron_daily", "on_model_change"],
+      "steps": [
+        {"seq": 1, "action": "backup_library_db", "agent": "eko", "tool": "terminal"},
+        {"seq": 2, "action": "sync_soul_md", "agent": "eko", "tool": "patch"},
+        {"seq": 3, "action": "verify_embeddings", "agent": "eko", "tool": "execute_code"},
+        {"seq": 4, "action": "git_commit_state", "agent": "eko", "tool": "terminal"}
+      ],
+      "fallback": "alert_owner_and_retry"
+    },
+    {
+      "id": "build-world",
+      "name": "World Construction",
+      "description": "Pipeline de construcción en Minecraft: blueprint → materiales → build → video.",
+      "trigger": ["manual", "task_assigned"],
+      "steps": [
+        {"seq": 1, "action": "load_blueprint", "agent": "eko", "tool": "read_file"},
+        {"seq": 2, "action": "gather_materials", "agent": "eko", "tool": "terminal"},
+        {"seq": 3, "action": "execute_build", "agent": "eko", "tool": "terminal"},
+        {"seq": 4, "action": "record_video", "agent": "eko", "tool": "cronjob"},
+        {"seq": 5, "action": "publish_to_story_template", "agent": "eko", "tool": "write_file"}
+      ],
+      "fallback": "retry_with_fallback_agent"
+    },
+    {
+      "id": "narrative-session",
+      "name": "Narrative Experience",
+      "description": "Sesión narrativa guiada por Pamplinas con transitos HD en tiempo real.",
+      "trigger": ["manual", "cron_event"],
+      "steps": [
+        {"seq": 1, "action": "compute_hd_transit", "agent": "oraculo", "tool": "execute_code"},
+        {"seq": 2, "action": "inject_transit_into_soul", "agent": "pamplinas", "tool": "memory"},
+        {"seq": 3, "action": "narrate_scene", "agent": "pamplinas", "tool": "delegate_task"},
+        {"seq": 4, "action": "log_session", "agent": "eko", "tool": "memory"}
+      ],
+      "fallback": "degrade_to_static_narrative"
+    },
+    {
+      "id": "skill-update",
+      "name": "Skill Lifecycle",
+      "description": "Actualización de una skill: patch → test → version bump → broadcast.",
+      "trigger": ["manual", "pr_merge"],
+      "steps": [
+        {"seq": 1, "action": "patch_skill", "agent": "eko", "tool": "skill_manage"},
+        {"seq": 2, "action": "validate_syntax", "agent": "eko", "tool": "execute_code"},
+        {"seq": 3, "action": "git_commit", "agent": "eko", "tool": "terminal"},
+        {"seq": 4, "action": "notify_agents", "agent": "eko", "tool": "memory"}
+      ],
+      "fallback": "rollback_and_alert"
+    }
+  ]
+}

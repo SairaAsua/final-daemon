@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Memory",
+  "description": "DocType-like schema for a memory asset in inventory",
+  "type": "object",
+  "required": ["agent_id", "memory_type", "path"],
+  "properties": {
+    "agent_id": {"type": "string"},
+    "memory_type": {"type": "string", "enum": ["semantic", "episodic", "procedural", "state", "skill", "project", "canonical"]},
+    "backend": {"type": "string", "enum": ["SQLite", "PostgreSQL", "markdown", "json", "vector_db"]},
+    "path": {"type": "string"},
+    "size_estimate_mb": {"type": ["number", "null"]},
+    "tables": {"type": "array", "items": {"type": "string"}},
+    "files": {"type": "array", "items": {"type": "string"}},
+    "retention_policy": {"type": "string"},
+    "backup_path": {"type": ["string", "null"]},
+    "last_backup": {"type": ["string", "null"], "format": "date-time"},
+    "shared_with": {"type": "array", "items": {"type": "string"}},
+    "access_level": {"type": "string", "enum": ["private", "shared", "owner", "public"]}
+  }
+}

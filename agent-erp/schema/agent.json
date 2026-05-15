@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent",
+  "description": "DocType-like schema for an AI agent in the Agent ERP",
+  "type": "object",
+  "required": ["id", "name", "role", "status"],
+  "properties": {
+    "id": {"type": "string", "description": "Unique agent identifier (lowercase, hyphens)"},
+    "name": {"type": "string", "description": "Display name"},
+    "role": {"type": "string", "description": "Role description"},
+    "cast": {"type": "string", "enum": ["CLI", "Minecraft", "CLI + Minecraft", "CLI + Estrategia", "Web", "API"]},
+    "status": {"type": "string", "enum": ["active", "idle", "busy", "offline", "planned", "deprecated"]},
+    "model": {"type": ["string", "null"], "description": "Primary LLM model"},
+    "provider": {"type": ["string", "null"], "description": "Model provider or endpoint"},
+    "memory_path": {"type": ["string", "null"], "description": "Path to canonical memory DB"},
+    "soul_path": {"type": ["string", "null"], "description": "Path to SOUL.md"},
+    "skills": {"type": "array", "items": {"type": "string"}},
+    "tools": {"type": "array", "items": {"type": "string"}},
+    "owner": {"type": "string"},
+    "health": {"type": "string", "enum": ["healthy", "degraded", "unhealthy", "unknown"]},
+    "cost_tier": {"type": "string", "enum": ["free", "local", "api", "mixed"]},
+    "hd_profile": {
+      "type": "object",
+      "description": "Human Design gates if applicable"
+    }
+  }
+}

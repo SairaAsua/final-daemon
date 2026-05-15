@@ -1,0 +1,86 @@
+[
+  {
+    "id": "01",
+    "beat": "hook",
+    "image_prompt": "A dim child's bedroom at night, a 9-year-old boy seen from behind sitting on the bed, his face lit only by the cold blue glow of a tablet screen, slumped shoulders, the room in deep indigo shadow, soft volumetric light from the screen, photographic, melancholic, cinematic 16:9, depth of field, no text, no UI, no logos, no Minecraft yet",
+    "video_prompt": "Slow gentle push-in toward the back of the boy's head, his thumb scrolling on the tablet, faint flicker of the screen reflected on the back wall, dust particles drifting in the cold blue light, ambient sound: very faint room tone, distant traffic, no music, melancholic stillness, no camera shake",
+    "duration_seconds": 6
+  },
+  {
+    "id": "02",
+    "beat": "hook",
+    "image_prompt": "Extreme close-up of a 9-year-old boy's tired eyes, the reflection of a scrolling social media feed faintly visible in his pupils, cold blue light on his face, indigo shadow on the other side, melancholic, photographic realism but gentle, shallow depth of field, cinematic 16:9, no text",
+    "video_prompt": "Static frame with micro-motion only: the boy blinks slowly once, the reflection in his pupils continues scrolling, a single slow exhale visible, ambient sound: barely audible scrolling, intimate stillness",
+    "duration_seconds": 6
+  },
+  {
+    "id": "03",
+    "beat": "reframe",
+    "image_prompt": "Same child's bedroom, now warm with the honey-gold glow of a Minecraft redstone lamp visible on the tablet, the boy leaning forward smiling softly, placing virtual blocks, warm amber light on his face replacing the cold blue, indigo shadow softened, painterly, hopeful, cinematic 16:9, Ghibli mood, no text",
+    "video_prompt": "Slow dolly-in on the boy's face as he leans toward the screen, his expression softening into a small genuine smile, his hand moves to place a block, warm honey light grows slightly on his face, ambient sound: soft block-place click, very faint cozy room tone, no music yet",
+    "duration_seconds": 6
+  },
+  {
+    "id": "04",
+    "beat": "reframe",
+    "image_prompt": "A small cozy oak Minecraft cabin in a wide green meadow at golden hour, voxel architecture but rendered with Complementary Shaders, volumetric god rays through birch trees, soft mist on the grass, distant rolling hills, painterly cinematic composition, peaceful, warm honey light mixed with pearl white clouds, indigo twilight starting in the sky corner, 16:9, no text, no UI",
+    "video_prompt": "Slow cinematic crane shot rising slightly over the meadow toward the cabin, grass swaying gently in the wind, birch leaves rustling, god rays shifting slowly through the trees, distant pheasant call, ambient sound: gentle wind, grass rustle, very distant Minecraft note-block in the air, peaceful",
+    "duration_seconds": 6
+  },
+  {
+    "id": "05",
+    "beat": "reveal",
+    "image_prompt": "First-person view of a player's hand in Minecraft placing a small quartz block on a stone platform, white pearl particles drifting around the block, a soft cyan glow entering from the right side of frame foreshadowing something arriving, golden hour light, BSL shaders, painterly, intimate close-up, 16:9, no text, no UI, no HUD",
+    "video_prompt": "The hand places the quartz block with a soft satisfying click, pearl-white particles puff outward and drift upward, the cyan glow from the right side intensifies subtly, anticipation, ambient sound: clean block-place click, soft chime, intimate close-up, no camera shake",
+    "duration_seconds": 6
+  },
+  {
+    "id": "06",
+    "beat": "reveal",
+    "image_prompt": "A small luminous cyan Allay companion from Minecraft floating in the air, body color cyan #7DD3FC with brighter cyan #06B6D4 glow, holding a single pearl-white music note that emits soft sparkles, gentle wings beating, looking warmly toward a 9-year-old Minecraft player character on the right, golden hour meadow background slightly out of focus, painterly, Ghibli warmth, cinematic 16:9, no text, no UI",
+    "video_prompt": "The Allay drifts gently into a hover, wings beating softly, the music note in its hand pulses with a single soft chime emanating outward as a visible ripple, it tilts its head toward the player off-screen, eyes warm, ambient sound: single delicate chime, soft Allay coo, gentle wing flutter, magical warmth",
+    "duration_seconds": 6
+  },
+  {
+    "id": "07",
+    "beat": "vinculo",
+    "image_prompt": "A 9-year-old Minecraft player character walking through a wide flower meadow at golden hour, a small cyan Allay companion floating beside him at shoulder height, golden dust motes and fireflies in the air, butterflies, distant birch forest, painterly volumetric light, peaceful wide shot, BSL shaders, 16:9, no text, no UI",
+    "video_prompt": "Tracking side-shot following the boy and Allay walking through the meadow, Allay bobbing gently up and down beside him, golden dust motes floating, fireflies blinking softly, butterflies crossing frame, ambient sound: footsteps on grass, soft wind, very faint music box melody in distance, hopeful",
+    "duration_seconds": 6
+  },
+  {
+    "id": "08",
+    "beat": "vinculo",
+    "image_prompt": "A Minecraft player building a small quartz beacon tower in a meadow at twilight, cyan Allay floating happily above the structure holding a music note, noteblocks placed around the base, visible soft cyan ripple waves emanating outward in concentric circles from the noteblocks, pearl-white particles, honey-warm torchlight at the base, indigo sky deepening, magical realism, painterly, 16:9, no text, no UI",
+    "video_prompt": "Slow orbit around the quartz beacon as the boy places the final block, the Allay spins joyfully above, the noteblocks at the base sound a soft three-note chord, visible cyan ripple waves expand outward across the meadow in concentric circles, pearl particles rise, ambient sound: three-note noteblock chord C-E-G soft, gentle harmonic pad swell, magical climax",
+    "duration_seconds": 6
+  },
+  {
+    "id": "09",
+    "beat": "vinculo",
+    "image_prompt": "Interior of a cozy Minecraft oak cabin at night, warm honey light from a redstone lamp, a 9-year-old player character and a small cyan Allay companion at the window looking out at a starry indigo sky, the Allay glow casting soft cyan reflections on the glass, painterly Ghibli interior warmth, fireplace embers visible, peaceful, intimate, 16:9, no text, no UI",
+    "video_prompt": "Static frame with breathing motion: the camera barely drifts, the boy and Allay are both looking out the window, the Allay's glow gently pulses, stars twinkle, the fireplace embers crackle softly, ambient sound: fireplace crackle, very faint owl, soft harmonic pad sustaining, intimate quiet",
+    "duration_seconds": 6
+  },
+  {
+    "id": "10",
+    "beat": "vision",
+    "image_prompt": "A child's real-world bedroom at night, the same room as shot 01 but warm now, a soft cyan luminous wisp gently flowing out of the tablet screen, crossing the room through the air leaving a faint trail of pearl particles, hovering near a small 3D printer on a desk that is mid-print, the printer's interior glowing soft honey-amber, magical realism, photographic but dreamlike, indigo shadows, cinematic 16:9, no text, no logos",
+    "video_prompt": "The cyan wisp emerges fluidly from the tablet screen, arcs gracefully through the air across the room leaving a soft pearl-particle trail, settles next to the 3D printer just as the printer completes a layer, the printed object glows faintly honey, ambient sound: soft magical whoosh, gentle 3D printer mechanical hum, faint chime when wisp arrives, dreamlike",
+    "duration_seconds": 6
+  },
+  {
+    "id": "11",
+    "beat": "vision",
+    "image_prompt": "A 9-year-old child standing on a small outdoor terrace at night looking up at a starry sky through a small refractor telescope, a soft cyan luminous wisp (the Allay's glow) floating beside the telescope eyepiece, pearl-white sparkles, the Milky Way faintly visible, indigo and deep teal night sky, warm window light spilling from inside the house behind them, painterly, intimate, hopeful, 16:9, no text, no logos",
+    "video_prompt": "Slow tilt-up from the child's face looking through the eyepiece to the night sky, the cyan wisp drifts beside the telescope and gently pulses, stars become more visible, a soft shooting star crosses the upper third of the frame, ambient sound: night crickets, very distant city, soft harmonic pad with a single bell tone on the shooting star, wonder",
+    "duration_seconds": 6
+  },
+  {
+    "id": "12",
+    "beat": "cierre",
+    "image_prompt": "Wide cinematic shot of a Minecraft meadow at deep golden hour fading into indigo twilight, a 9-year-old player character standing on a small rise with their back to camera, a small cyan Allay companion floating beside them, dust motes and pearl particles in the air, distant rolling hills, BSL shaders, painterly Ghibli composition, the lower third of the frame leaves empty space for a wordmark to appear, 16:9, no text yet, no UI",
+    "video_prompt": "Slow continuous dolly-back wide shot, the boy and Allay remain centered as the meadow opens around them, sky deepens slightly from gold to indigo, dust particles drift, the lower third of the frame stays clean for a wordmark to be composited in post, ambient sound: harmonic pad reaching gentle resolution, last single chime, no spoken word",
+    "duration_seconds": 9
+  }
+]

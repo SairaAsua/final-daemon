@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agent ERP — DaemonCraft</title>
+<style>
+:root {
+  --bg: #0b0c10;
+  --panel: #1f2833;
+  --accent: #66fcf1;
+  --accent2: #45a29e;
+  --text: #c5c6c7;
+  --text2: #8a8d91;
+  --danger: #e06c75;
+  --warning: #e5c07b;
+  --ok: #98c379;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+aside {
+  width: 220px;
+  background: var(--panel);
+  border-right: 1px solid #2a2f3a;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+.brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 0 20px 20px;
+  border-bottom: 1px solid #2a2f3a;
+  margin-bottom: 10px;
+}
+.brand small {
+  display: block;
+  font-size: 11px;
+  color: var(--text2);
+  font-weight: 400;
+  margin-top: 4px;
+}
+nav a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+}
+nav a:hover, nav a.active {
+  background: #2a2f3a;
+  border-left-color: var(--accent);
+}
+nav a .badge {
+  float: right;
+  background: var(--accent2);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 600;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.kpi {
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #2a2f3a;
+}
+.kpi .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 6px;
+}
+.kpi .value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.kpi .sub {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+.section-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin: 24px 0 12px;
+  letter-spacing: 0.5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+th, td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #2a2f3a;
+}
+th {
+  color: var(--text2);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+tr:hover { background: #161b22; }
+.status {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+.status.active { background: var(--ok); }
+.status.planned { background: var(--warning); }
+.status.offline { background: var(--danger); }
+.health.healthy { color: var(--ok); }
+.health.unknown { color: var(--warning); }
+.tag {
+  display: inline-block;
+  background: #2a2f3a;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  margin-right: 4px;
+}
+.hidden { display: none !important; }
+.panel {
+  background: var(--panel);
+  border-radius: 8px;
+  border: 1px solid #2a2f3a;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  body { flex-direction: column; }
+  aside { width: 100%; flex-direction: row; overflow-x: auto; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<aside>
+  <div class="brand">
+    Agent ERP
+    <small>DaemonCraft · AlterMundi</small>
+  </div>
+  <nav>
+    <a class="active" data-view="overview">⚙️ Overview</a>
+    <a data-view="registry">👤 Agent Registry <span class="badge" id="nav-agent-count">0</span></a>
+    <a data-view="memory">🧠 Memory Inventory</a>
+    <a data-view="skills">🎓 Skill Catalog</a>
+    <a data-view="workflows">🔗 Workflows</a>
+    <a data-view="costs">💰 Cost Ledger</a>
+  </nav>
+</aside>
+
+<main>
+  <!-- OVERVIEW -->
+  <div id="view-overview" class="view">
+    <div class="header"><h1>Overview</h1><span style="color:var(--text2);font-size:12px;">v1.0.0 · 2026-05-15</span></div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="label">Agentes activos</div><div class="value" id="kpi-active">0</div><div class="sub">de <span id="kpi-total">0</span> registrados</div></div>
+      <div class="kpi"><div class="label">Memorias (DB)</div><div class="value" id="kpi-mem">0</div><div class="sub">SQLite + embeddings</div></div>
+      <div class="kpi"><div class="label">Skills cargadas</div><div class="value" id="kpi-skills">0</div><div class="sub">en catálogo</div></div>
+      <div class="kpi"><div class="label">Workflows</div><div class="value" id="kpi-flows">0</div><div class="sub">pipelines definidos</div></div>
+      <div class="kpi"><div class="label">Costo hoy</div><div class="value" style="color:var(--warning)">$0.00</div><div class="sub">budget $50/mes</div></div>
+      <div class="kpi"><div class="label">Worlds</div><div class="value">1</div><div class="sub">Soul World (beta)</div></div>
+    </div>
+
+    <div class="section-title">🚨 Agent Health</div>
+    <table>
+      <thead><tr><th>Agente</th><th>Estado</th><th>Salud</th><th>Modelo</th><th>Skills</th><th>Último heartbeat</th></tr></thead>
+      <tbody id="overview-table"></tbody>
+    </table>
+  </div>
+
+  <!-- REGISTRY -->
+  <div id="view-registry" class="view hidden">
+    <div class="header"><h1>Agent Registry</h1></div>
+    <table>
+      <thead><tr><th>ID</th><th>Nombre</th><th>Rol</th><th>Cast</th><th>Estado</th><th>Modelo</th><th>Owner</th><th>Cost tier</th></tr></thead>
+      <tbody id="registry-table"></tbody>
+    </table>
+  </div>
+
+  <!-- MEMORY -->
+  <div id="view-memory" class="view hidden">
+    <div class="header"><h1>Memory Inventory</h1></div>
+    <table>
+      <thead><tr><th>Agente</th><th>Tipo</th><th>Backend</th><th>Ruta</th><th>MB est.</th><th>Política</th><th>Acceso</th></tr></thead>
+      <tbody id="memory-table"></tbody>
+    </table>
+  </div>
+
+  <!-- SKILLS -->
+  <div id="view-skills" class="view hidden">
+    <div class="header"><h1>Skill Catalog</h1></div>
+    <table>
+      <thead><tr><th>ID</th><th>Nombre</th><th>Dominio</th><th>Agentes</th><th>Fuente</th></tr></thead>
+      <tbody id="skills-table"></tbody>
+    </table>
+  </div>
+
+  <!-- WORKFLOWS -->
+  <div id="view-workflows" class="view hidden">
+    <div class="header"><h1>Workflows</h1></div>
+    <div id="workflows-list"></div>
+  </div>
+
+  <!-- COSTS -->
+  <div id="view-costs" class="view hidden">
+    <div class="header"><h1>Cost Ledger</h1></div>
+    <div class="panel">
+      <p style="color:var(--text2);font-size:13px;">El ledger de costos requiere integración con AgentOps u OpenLIT para tracking automático. Por ahora se mantiene manual en <code>cost-ledger.md</code>.</p>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="label" style="margin-bottom:8px">Modelos y tarifas</div>
+        <table>
+          <thead><tr><th>Modelo</th><th>Provider</th><th>Modo</th><th>Costo</th></tr></thead>
+          <tbody>
+            <tr><td>kimi-k2.6</td><td>kimi-coding</td><td>API</td><td>~$0.003 / 1K tok</td></tr>
+            <tr><td>gemma4:e4b</td><td>Ollama local</td><td>Local</td><td>$0 (infra)</td></tr>
+            <tr><td>minimax</td><td>MiniMax</td><td>API</td><td>~$0.002 / 1K tok</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <div class="label" style="margin-bottom:8px">Budget mensual</div>
+        <div style="font-size:32px;font-weight:700;color:var(--accent)">$50.00</div>
+        <div style="margin-top:8px;color:var(--text2);font-size:13px">Gastado: $0.00 · Restante: $50.00</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+const DATA = {};
+
+async function load() {
+  try {
+    const [reg, mem, skl, flow] = await Promise.all([
+      fetch('../agent-registry.json').then(r => r.json()),
+      fetch('../memory-inventory.json').then(r => r.json()),
+      fetch('../skill-catalog.json').then(r => r.json()),
+      fetch('../workflow-registry.json').then(r => r.json())
+    ]);
+    DATA.registry = reg;
+    DATA.memory = mem;
+    DATA.skills = skl;
+    DATA.workflows = flow;
+    renderOverview();
+    renderRegistry();
+    renderMemory();
+    renderSkills();
+    renderWorkflows();
+  } catch (e) {
+    console.error('Error cargando datos:', e);
+    document.querySelector('main').innerHTML = '<div style="padding:40px;color:var(--danger)">Error cargando datos ERP. Verificá que los archivos JSON existan.</div>';
+  }
+}
+
+function renderOverview() {
+  const agents = DATA.registry.agents;
+  const active = agents.filter(a => a.status === 'active').length;
+  document.getElementById('kpi-active').textContent = active;
+  document.getElementById('kpi-total').textContent = agents.length;
+  document.getElementById('kpi-mem').textContent = DATA.memory.inventory.length;
+  document.getElementById('kpi-skills').textContent = DATA.skills.skills.length;
+  document.getElementById('kpi-flows').textContent = DATA.workflows.workflows.length;
+  document.getElementById('nav-agent-count').textContent = agents.length;
+
+  const tbody = document.getElementById('overview-table');
+  tbody.innerHTML = agents.map(a => `
+    <tr>
+      <td><strong>${a.name}</strong></td>
+      <td><span class="status ${a.status}"></span>${a.status}</td>
+      <td class="health ${a.health}">${a.health}</td>
+      <td>${a.model || '-'}</td>
+      <td>${(a.skills || []).slice(0,3).map(s => `<span class="tag">${s}</span>`).join('')}${(a.skills||[]).length>3?'<span class="tag">+'+((a.skills||[]).length-3)+'</span>':''}</td>
+      <td>${a.last_heartbeat || 'N/A'}</td>
+    </tr>
+  `).join('');
+}
+
+function renderRegistry() {
+  const tbody = document.getElementById('registry-table');
+  tbody.innerHTML = DATA.registry.agents.map(a => `
+    <tr>
+      <td><code>${a.id}</code></td>
+      <td><strong>${a.name}</strong></td>
+      <td>${a.role}</td>
+      <td>${a.cast}</td>
+      <td><span class="status ${a.status}"></span>${a.status}</td>
+      <td>${a.model || '-'}</td>
+      <td>${a.owner}</td>
+      <td>${a.cost_tier}</td>
+    </tr>
+  `).join('');
+}
+
+function renderMemory() {
+  const tbody = document.getElementById('memory-table');
+  tbody.innerHTML = DATA.memory.inventory.map(m => `
+    <tr>
+      <td>${m.agent_id}</td>
+      <td>${m.memory_type}</td>
+      <td>${m.backend}</td>
+      <td><code style="font-size:11px">${m.path}</code></td>
+      <td>${m.size_estimate_mb || '-'}</td>
+      <td>${m.retention_policy}</td>
+      <td>${m.access_level}</td>
+    </tr>
+  `).join('');
+}
+
+function renderSkills() {
+  const tbody = document.getElementById('skills-table');
+  tbody.innerHTML = DATA.skills.skills.map(s => `
+    <tr>
+      <td><code>${s.id}</code></td>
+      <td><strong>${s.name}</strong></td>
+      <td><span class="tag">${s.domain}</span></td>
+      <td>${s.agents.map(a => `<span class="tag">${a}</span>`).join('')}</td>
+      <td><code style="font-size:11px">${s.source}</code></td>
+    </tr>
+  `).join('');
+}
+
+function renderWorkflows() {
+  const container = document.getElementById('workflows-list');
+  container.innerHTML = DATA.workflows.workflows.map(w => `
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong style="color:var(--accent)">${w.name}</strong>
+        <span class="tag">${w.id}</span>
+      </div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:10px">${w.description}</p>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px">
+        Trigger: ${w.trigger.map(t => `<span class="tag">${t}</span>`).join('')} · Fallback: ${w.fallback}
+      </div>
+      <table>
+        <thead><tr><th>#</th><th>Acción</th><th>Agente</th><th>Tool</th></tr></thead>
+        <tbody>${w.steps.map(s => `<tr><td>${s.seq}</td><td>${s.action}</td><td>${s.agent}</td><td><code>${s.tool}</code></td></tr>`).join('')}</tbody>
+      </table>
+    </div>
+  `).join('');
+}
+
+// Navegación
+document.querySelectorAll('nav a[data-view]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+    document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+    document.getElementById('view-' + link.dataset.view).classList.remove('hidden');
+  });
+});
+
+load();
+</script>
+</body>
+</html>

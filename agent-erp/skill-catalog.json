@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "skills": [
+    {"id": "building", "name": "Building", "domain": "minecraft", "agents": ["eko", "stevie", "flint"], "source": "~/.hermes/skills/minecraft-building.md"},
+    {"id": "combat", "name": "Combat", "domain": "minecraft", "agents": ["eko", "stevie", "ember"], "source": "~/.hermes/skills/minecraft-combat.md"},
+    {"id": "farming", "name": "Farming", "domain": "minecraft", "agents": ["eko", "moss"], "source": "~/.hermes/skills/minecraft-farming.md"},
+    {"id": "gathering", "name": "Gathering", "domain": "minecraft", "agents": ["eko", "moss", "reed", "flint"], "source": "~/.hermes/skills/minecraft-gathering.md"},
+    {"id": "goals", "name": "Goals", "domain": "minecraft", "agents": ["eko"], "source": "~/.hermes/skills/minecraft-goals.md"},
+    {"id": "navigation", "name": "Navigation", "domain": "minecraft", "agents": ["eko"], "source": "~/.hermes/skills/minecraft-navigation.md"},
+    {"id": "survival", "name": "Survival", "domain": "minecraft", "agents": ["eko", "stevie"], "source": "~/.hermes/skills/minecraft-survival.md"},
+    {"id": "video-plugin", "name": "Video Plugin", "domain": "creative", "agents": ["eko"], "source": "~/.hermes/skills/daemoncraft-video-plugin.md"},
+    {"id": "soul-engine", "name": "Soul Engine", "domain": "core", "agents": ["eko", "oraculo"], "source": "~/daemonmatrix/daemoncraft-soul-engine/"},
+    {"id": "hermes-memory-kit", "name": "HMK", "domain": "core", "agents": ["eko", "pamplinas", "oraculo"], "source": "~/hermes-memory-kit/"},
+    {"id": "narrative", "name": "Narrative", "domain": "creative", "agents": ["pamplinas"], "source": "~/.hermes/skills/daemoncraft-narrative-experience.md"},
+    {"id": "rolemaster", "name": "Role Master", "domain": "creative", "agents": ["pamplinas"], "source": "~/.hermes/skills/daemoncraft-minecraft-agent-system.md"},
+    {"id": "strategy", "name": "Strategy", "domain": "core", "agents": ["oraculo"], "source": "~/.hermes/skills/lattice-task-management.md"},
+    {"id": "human-design", "name": "Human Design", "domain": "core", "agents": ["oraculo"], "source": "~/daemonmatrix/daemoncraft-soul-engine/"},
+    {"id": "agent-erp", "name": "Agent ERP", "domain": "meta", "agents": ["eko"], "source": "~/.hermes/skills/agent-erp/SKILL.md"}
+  ]
+}

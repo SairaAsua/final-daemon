@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DaemonMatrix Plan · Dashboard Técnico</title>
+<style>
+:root { --bg:#0b0c10; --panel:#1f2833; --accent:#66fcf1; --accent2:#45a29e; --text:#c5c6c7; --text2:#8a8d91; --ok:#98c379; --warn:#e5c07b; --danger:#e06c75; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); display:flex; height:100vh; overflow:hidden; }
+aside { width:240px; background:var(--panel); border-right:1px solid #2a2f3a; display:flex; flex-direction:column; padding:20px 0; }
+.brand { font-size:18px; font-weight:700; color:var(--accent); padding:0 20px 16px; border-bottom:1px solid #2a2f3a; margin-bottom:10px; }
+.brand small { display:block; font-size:11px; color:var(--text2); font-weight:400; margin-top:4px; }
+nav a { display:block; padding:10px 20px; color:var(--text); text-decoration:none; font-size:13px; border-left:3px solid transparent; cursor:pointer; }
+nav a:hover, nav a.active { background:#2a2f3a; border-left-color:var(--accent); }
+main { flex:1; overflow-y:auto; padding:24px; }
+.header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.header h1 { font-size:22px; font-weight:600; }
+.kpi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; margin-bottom:22px; }
+.kpi { background:var(--panel); border-radius:8px; padding:14px; border:1px solid #2a2f3a; }
+.kpi .label { font-size:10px; text-transform:uppercase; color:var(--text2); margin-bottom:4px; }
+.kpi .value { font-size:26px; font-weight:700; color:var(--accent); }
+.kpi .sub { font-size:11px; color:var(--text2); margin-top:3px; }
+.section-title { font-size:12px; text-transform:uppercase; color:var(--text2); margin:22px 0 10px; letter-spacing:.5px; }
+table { width:100%; border-collapse:collapse; font-size:12px; }
+th, td { text-align:left; padding:8px 10px; border-bottom:1px solid #2a2f3a; }
+th { color:var(--text2); font-weight:500; text-transform:uppercase; font-size:10px; }
+tr:hover { background:#161b22; }
+.status { display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:5px; }
+.status.active { background:var(--ok); }
+.status.planned { background:var(--warn); }
+.status.pending { background:var(--danger); }
+.prio-p0 { color:var(--danger); font-weight:700; }
+.prio-p1 { color:var(--warn); font-weight:600; }
+.prio-p2 { color:var(--ok); }
+.phase-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:10px; background:#2a2f3a; }
+.owner-human { color:#61afef; }
+.owner-agent { color:#c678dd; }
+.hidden { display:none !important; }
+.timeline { display:flex; gap:4px; flex-wrap:wrap; margin:12px 0; }
+.timeline .bar { height:20px; border-radius:4px; font-size:10px; display:flex; align-items:center; justify-content:center; padding:0 6px; }
+.view {}
+.panel { background:var(--panel); border-radius:8px; border:1px solid #2a2f3a; padding:14px; margin-bottom:12px; }
+@media (max-width:900px){ body{flex-direction:column;} aside{width:100%;flex-direction:row;overflow-x:auto;} }
+</style>
+</head>
+<body>
+<aside>
+  <div class="brand">DaemonMatrix Plan <small>Dashboard Técnico · v1.0</small></div>
+  <nav>
+    <a class="active" data-view="overview">📊 Overview</a>
+    <a data-view="team">👥 Equipo</a>
+    <a data-view="areas">🗺️ Áreas</a>
+    <a data-view="timeline">📅 Timeline</a>
+    <a data-view="tasks">✅ Tareas</a>
+    <a data-view="git">🔧 Git Flow</a>
+  </nav>
+</aside>
+<main>
+  <!-- OVERVIEW -->
+  <div id="view-overview" class="view">
+    <div class="header"><h1>Overview</h1><span style="color:var(--text2);font-size:12px">Actualizado: 2026-05-15</span></div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="label">Áreas</div><div class="value">10</div><div class="sub">funcionales</div></div>
+      <div class="kpi"><div class="label">Tareas</div><div class="value" id="kpi-tasks">0</div><div class="sub">en plan técnico</div></div>
+      <div class="kpi"><div class="label">Humanos</div><div class="value">8</div><div class="sub">activos + part-time</div></div>
+      <div class="kpi"><div class="label">Agentes</div><div class="value">3</div><div class="sub">activos / 5 planned</div></div>
+      <div class="kpi"><div class="label">Fases</div><div class="value">5</div><div class="sub">hasta ecosystem</div></div>
+      <div class="kpi"><div class="label">Merge freq</div><div class="value">2d</div><div class="sub">a main</div></div>
+    </div>
+    <div class="section-title">🚨 Estado por área</div>
+    <table><thead><tr><th>Área</th><th>Lead Humano</th><th>Lead Agente</th><th>Rama</th><th>Tareas P0</th><th>Tareas total</th><th>Fase actual</th></tr></thead><tbody id="area-summary"></tbody></table>
+  </div>
+
+  <!-- TEAM -->
+  <div id="view-team" class="view hidden">
+    <div class="header"><h1>Equipo</h1></div>
+    <div class="section-title">Humanos</div>
+    <table><thead><tr><th>ID</th><th>Nombre</th><th>Rol</th><th>Áreas</th><th>Disponibilidad</th></tr></thead><tbody id="team-humans"></tbody></table>
+    <div class="section-title">Agentes</div>
+    <table><thead><tr><th>ID</th><th>Nombre</th><th>Rol</th><th>Áreas</th><th>Modelo</th><th>Estado</th></tr></thead><tbody id="team-agents"></tbody></table>
+  </div>
+
+  <!-- AREAS -->
+  <div id="view-areas" class="view hidden">
+    <div class="header"><h1>Áreas funcionales</h1></div>
+    <div id="areas-detail"></div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div id="view-timeline" class="view hidden">
+    <div class="header"><h1>Timeline</h1></div>
+    <div class="panel">
+      <div style="display:grid;grid-template-columns:140px 1fr;gap:10px;font-size:12px;align-items:center">
+        <div><strong>Fase 1</strong> · Consolidación APL</div>
+        <div class="timeline"><div class="bar" style="width:16%;background:var(--accent2)">M1-M2</div></div>
+        <div><strong>Fase 2</strong> · Multi-Agent</div>
+        <div class="timeline"><div class="bar" style="width:16%;background:var(--accent);margin-left:16%">M2-M4</div></div>
+        <div><strong>Fase 3</strong> · Embodiment</div>
+        <div class="timeline"><div class="bar" style="width:32%;background:var(--ok);margin-left:32%">M4-M8</div></div>
+        <div><strong>Fase 4</strong> · Platform</div>
+        <div class="timeline"><div class="bar" style="width:48%;background:var(--warn);margin-left:64%">M8-M14</div></div>
+        <div><strong>Fase 5</strong> · Ecosystem</div>
+        <div class="timeline"><div class="bar" style="width:20%;background:#c678dd;margin-left:112%">M14+</div></div>
+      </div>
+    </div>
+    <div class="section-title">Hitos clave</div>
+    <table><thead><tr><th>Mes</th><th>Hito</th><th>Áreas involucradas</th></tr></thead>
+    <tbody>
+      <tr><td>M1</td><td>Rebirth sync robusto + Agent Registry API</td><td>APL Core, Memory, Orchestration</td></tr>
+      <tr><td>M2</td><td>Bot framework con skills dinámicas + Docker compose full</td><td>Bot Framework, Infra</td></tr>
+      <tr><td>M3</td><td>Workflow engine multi-agente funcional</td><td>Orchestration, APL Core</td></tr>
+      <tr><td>M4</td><td>App MVP navegable + Auth</td><td>App, Security</td></tr>
+      <tr><td>M6</td><td>Embodiment Terminal + Minecraft especificados</td><td>Embodiment, APL Core</td></tr>
+      <tr><td>M8</td><td>Observability completa + cost tracking</td><td>Observability, Infra</td></tr>
+      <tr><td>M10</td><td>Beta privada con 20 familias</td><td>App, Security, Infra</td></tr>
+      <tr><td>M12</td><td>Multi-game support (research)</td><td>Embodiment, Bot Framework</td></tr>
+      <tr><td>M14</td><td>Beta pública 100 familias</td><td>Todas</td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- TASKS -->
+  <div id="view-tasks" class="view hidden">
+    <div class="header"><h1>Tareas</h1></div>
+    <div style="margin-bottom:10px">
+      <button onclick="filterTasks('all')" class="tag" style="cursor:pointer">Todas</button>
+      <button onclick="filterTasks('P0')" class="tag" style="cursor:pointer">P0</button>
+      <button onclick="filterTasks('P1')" class="tag" style="cursor:pointer">P1</button>
+      <button onclick="filterTasks('P2')" class="tag" style="cursor:pointer">P2</button>
+      <button onclick="filterTasks('fase1')" class="tag" style="cursor:pointer">Fase 1</button>
+      <button onclick="filterTasks('fase2')" class="tag" style="cursor:pointer">Fase 2</button>
+    </div>
+    <table><thead><tr><th>ID</th><th>Tarea</th><th>Owner</th><th>Prio</th><th>Fase</th><th>Área</th></tr></thead><tbody id="tasks-table"></tbody></table>
+  </div>
+
+  <!-- GIT -->
+  <div id="view-git" class="view hidden">
+    <div class="header"><h1>Git Flow</h1></div>
+    <div class="panel">
+      <h3 style="color:var(--accent);margin-bottom:10px">Ramas permanentes</h3>
+      <p><code>main</code> — únicamente código que compila y corre. Protegida.</p>
+      <p><code>develop</code> — integración continua (opcional para equipos grandes).</p>
+    </div>
+    <div class="panel">
+      <h3 style="color:var(--accent);margin-bottom:10px">Ramas por área (vida ≤ 2 días)</h3>
+      <div id="git-branches"></div>
+    </div>
+    <div class="panel">
+      <h3 style="color:var(--accent);margin-bottom:10px">Reglas de merge</h3>
+      <ol style="font-size:13px;color:var(--text);line-height:1.8;padding-left:18px">
+        <li>Cada <strong>2 días</strong>, el lead de área abre PR a <code>main</code>.</li>
+        <li>El PR debe pasar: tests + lint + review de ≥ 1 humano.</li>
+        <li>Si un PR rompe <code>main</code>: revert inmediato + post-mortem async.</li>
+        <li>Tags: <code>v0.x.y-area-fecha</code> en cada merge exitoso.</li>
+        <li>Eko procesa PRs abiertos cada mañana: resume cambios, detecta conflictos, alerta si hay área sin merge ≥ 2 días.</li>
+      </ol>
+    </div>
+  </div>
+</main>
+
+<script>
+const DATA = {
+  areas: [
+    {id:"AREA-1",name:"APL Core",human:"Nico (H2)",agent:"Eko (A1)",branch:"area/apl-core",phase:1,p0:4,total:8},
+    {id:"AREA-2",name:"Soul Engine",human:"Saira / Julián",agent:"Oráculo (A3)",branch:"area/soul-engine",phase:1,p0:3,total:8},
+    {id:"AREA-3",name:"Memory (HMK)",human:"Mariano (H3)",agent:"Eko (A1)",branch:"area/memory",phase:1,p0:3,total:8},
+    {id:"AREA-4",name:"Bot Framework",human:"Anabella (H5)",agent:"Eko / Stevie",branch:"area/bot-framework",phase:1,p0:2,total:9},
+    {id:"AREA-5",name:"Infra / Server",human:"Jeremías / Nico",agent:"Eko (A1)",branch:"area/infra",phase:1,p0:2,total:8},
+    {id:"AREA-6",name:"Orchestration",human:"Pablo / Nico",agent:"Eko (A1)",branch:"area/orchestration",phase:2,p0:1,total:8},
+    {id:"AREA-7",name:"Embodiment",human:"Nico / Saira",agent:"Reed (A6)",branch:"area/embodiment",phase:3,p0:1,total:7},
+    {id:"AREA-8",name:"App / Vórtice",human:"Javier / Saira",agent:"Eko (A1)",branch:"area/app",phase:1,p0:2,total:8},
+    {id:"AREA-9",name:"Observability",human:"Jeremías / Eko",agent:"Eko (A1)",branch:"area/observability",phase:2,p0:0,total:6},
+    {id:"AREA-10",name:"Security",human:"Jeremías / Saira",agent:"Oráculo (A3)",branch:"area/security",phase:2,p0:1,total:6}
+  ],
+  humans: [
+    {id:"H1",name:"Saira Asua",role:"Product Owner, almas, branding",areas:"Todas",avail:"Full-time"},
+    {id:"H2",name:"Nicolás Echániz",role:"Arquitecto APL, infraestructura",areas:"Core, Infra, Bridge",avail:"Part-time"},
+    {id:"H3",name:"Mariano",role:"Memoria, HIT, HMK",areas:"Memory, Research",avail:"Part-time"},
+    {id:"H4",name:"Julián de la Reta",role:"Psicología, narrativa, demo",areas:"Soul Engine, Demo",avail:"Part-time"},
+    {id:"H5",name:"Anabella",role:"Developer Minecraft/bots",areas:"Bot Framework",avail:"Full-time"},
+    {id:"H6",name:"Pablo",role:"Developer backend",areas:"Core, Bridge",avail:"Full-time"},
+    {id:"H7",name:"Javier",role:"Developer frontend/app",areas:"App, Dashboards",avail:"Full-time"},
+    {id:"H8",name:"Jeremías",role:"DevOps, servidores",areas:"Infra, Security",avail:"Full-time"}
+  ],
+  agents: [
+    {id:"A1",name:"Eko",role:"Constructora, orquestadora CLI",areas:"Core, Bridge, Memory, Infra",model:"Kimi CLI / Gemma4 MC",status:"active"},
+    {id:"A2",name:"PamPliNas",role:"Role Master, narrador",areas:"Demo, Lore, Narrativa",model:"MiniMax",status:"active"},
+    {id:"A3",name:"Oráculo",role:"Estratega, HD, consejero",areas:"Soul Engine, Planning",model:"Gemma4 local",status:"active"},
+    {id:"A4",name:"Stevie",role:"Guerrero, pragmático",areas:"Bot Framework, Combat",model:"Pendiente",status:"planned"},
+    {id:"A5",name:"Moss",role:"Cocinero, cuidado",areas:"Farming, Healing, Gathering",model:"Pendiente",status:"planned"},
+    {id:"A6",name:"Reed",role:"Mercader, comunicación",areas:"Trading, APIs, Integrations",model:"Pendiente",status:"planned"},
+    {id:"A7",name:"Flint",role:"Minero, persistencia",areas:"Mining, Building, Data",model:"Pendiente",status:"planned"},
+    {id:"A8",name:"Ember",role:"Fuego, exploración",areas:"Exploration, Alchemy, Combat",model:"Pendiente",status:"planned"}
+  ],
+  tasks: [
+    {id:"C1.1",title:"Especificar formato AgentState v1",owner:"H2",prio:"P0",phase:1,area:"APL Core"},
+    {id:"C1.2",title:"Implementar serialize/deserialize",owner:"H2+A1",prio:"P0",phase:1,area:"APL Core"},
+    {id:"C1.3",title:"Definir handshake de portabilidad",owner:"H2",prio:"P0",phase:1,area:"APL Core"},
+    {id:"C1.4",title:"Plugin rebirth para Hermes",owner:"A1",prio:"P0",phase:1,area:"APL Core"},
+    {id:"C1.5",title:"Tests de integridad post-rebirth",owner:"H5",prio:"P1",phase:1,area:"APL Core"},
+    {id:"C1.6",title:"Versionado de estado v1→v2",owner:"H2",prio:"P2",phase:2,area:"APL Core"},
+    {id:"C1.7",title:"Encriptación de estado",owner:"H8",prio:"P1",phase:2,area:"APL Core"},
+    {id:"C1.8",title:"API pública DaemonMatrix",owner:"H2+H6",prio:"P1",phase:2,area:"APL Core"},
+    {id:"S2.1",title:"Refactorizar motor HD a librería",owner:"H2+A3",prio:"P0",phase:1,area:"Soul Engine"},
+    {id:"S2.2",title:"Generador automático SOUL.md",owner:"A3",prio:"P0",phase:1,area:"Soul Engine"},
+    {id:"S2.3",title:"Cálculo de tránsitos diarios",owner:"A3",prio:"P0",phase:1,area:"Soul Engine"},
+    {id:"S2.4",title:"Inyección tránsitos → prompt",owner:"A1+A3",prio:"P1",phase:1,area:"Soul Engine"},
+    {id:"S2.5",title:"Curación HD de 14 personajes",owner:"H4",prio:"P1",phase:2,area:"Soul Engine"},
+    {id:"S2.6",title:"Sistema evolución del alma",owner:"H1+H4",prio:"P2",phase:2,area:"Soul Engine"},
+    {id:"S2.7",title:"Plugin HD confidencial onboarding",owner:"H1",prio:"P0",phase:1,area:"Soul Engine"},
+    {id:"S2.8",title:"Documentar arquitectura HD",owner:"A3",prio:"P2",phase:2,area:"Soul Engine"},
+    {id:"M3.1",title:"Estabilizar HMK v1 + tests",owner:"H3+A1",prio:"P0",phase:1,area:"Memory"},
+    {id:"M3.2",title:"Plugin prefetch Hermes",owner:"H3",prio:"P0",phase:1,area:"Memory"},
+    {id:"M3.3",title:"Backups automáticos library.db",owner:"A1",prio:"P0",phase:1,area:"Memory"},
+    {id:"M3.4",title:"Sincronización multi-device",owner:"H3",prio:"P1",phase:2,area:"Memory"},
+    {id:"M3.5",title:"Memoria compartida por equipo",owner:"H3",prio:"P1",phase:2,area:"Memory"},
+    {id:"M3.6",title:"Garbage collection memorias",owner:"A1",prio:"P2",phase:2,area:"Memory"},
+    {id:"M3.7",title:"Integración MemMachine",owner:"H3",prio:"P3",phase:3,area:"Memory"},
+    {id:"M3.8",title:"Embeddings multilingüe",owner:"H3",prio:"P2",phase:3,area:"Memory"},
+    {id:"B4.1",title:"Refactorizar bot_minecraft a paquete",owner:"H5",prio:"P0",phase:1,area:"Bot Framework"},
+    {id:"B4.2",title:"Sistema de skills dinámicas",owner:"H5+A1",prio:"P0",phase:1,area:"Bot Framework"},
+    {id:"B4.3",title:"Bodygraph natal en bot",owner:"A3+H5",prio:"P1",phase:1,area:"Bot Framework"},
+    {id:"B4.4",title:"Plugin tránsitos planetarios",owner:"A3",prio:"P1",phase:1,area:"Bot Framework"},
+    {id:"B4.5",title:"Sistema de casting runtime",owner:"H5",prio:"P1",phase:2,area:"Bot Framework"},
+    {id:"B4.6",title:"Integración Harmonic Beacon",owner:"H5",prio:"P2",phase:2,area:"Bot Framework"},
+    {id:"B4.7",title:"Sistema blueprints JSON → build",owner:"A1",prio:"P1",phase:2,area:"Bot Framework"},
+    {id:"B4.8",title:"Tests E2E bot completa tarea",owner:"H5",prio:"P1",phase:2,area:"Bot Framework"},
+    {id:"B4.9",title:"Spawn landfolk autónomos",owner:"H5+A2",prio:"P3",phase:3,area:"Bot Framework"},
+    {id:"I5.1",title:"Docker Compose producción",owner:"H8",prio:"P0",phase:1,area:"Infra"},
+    {id:"I5.2",title:"Sistema de worlds por familia",owner:"H8",prio:"P1",phase:2,area:"Infra"},
+    {id:"I5.3",title:"Auto-scaling de bots",owner:"H8",prio:"P2",phase:3,area:"Infra"},
+    {id:"I5.4",title:"Monitoreo Prometheus+Grafana",owner:"H8",prio:"P2",phase:2,area:"Infra"},
+    {id:"I5.5",title:"Backup automático mundos",owner:"H8",prio:"P0",phase:1,area:"Infra"},
+    {id:"I5.6",title:"CI/CD GitHub Actions",owner:"H8",prio:"P1",phase:2,area:"Infra"},
+    {id:"I5.7",title:"Reverse proxy + SSL",owner:"H8",prio:"P1",phase:2,area:"Infra"},
+    {id:"I5.8",title:"Rate limiting + DDoS",owner:"H8",prio:"P2",phase:3,area:"Infra"},
+    {id:"O6.1",title:"Refactorizar agent-bridge a FastAPI",owner:"H6",prio:"P0",phase:1,area:"Orchestration"},
+    {id:"O6.2",title:"Agent Registry API",owner:"H6+A1",prio:"P0",phase:1,area:"Orchestration"},
+    {id:"O6.3",title:"Task Queue Redis/RQ",owner:"H6",prio:"P1",phase:2,area:"Orchestration"},
+    {id:"O6.4",title:"Message bus WebSocket",owner:"H6",prio:"P1",phase:2,area:"Orchestration"},
+    {id:"O6.5",title:"Workflow engine JSON",owner:"H6+A1",prio:"P1",phase:2,area:"Orchestration"},
+    {id:"O6.6",title:"Human-in-the-loop",owner:"H6",prio:"P2",phase:2,area:"Orchestration"},
+    {id:"O6.7",title:"Load balancing",owner:"H6",prio:"P2",phase:3,area:"Orchestration"},
+    {id:"O6.8",title:"Dead letter queue",owner:"H6",prio:"P2",phase:3,area:"Orchestration"},
+    {id:"E7.1",title:"Terminal embodiment spec",owner:"H2",prio:"P0",phase:1,area:"Embodiment"},
+    {id:"E7.2",title:"Minecraft embodiment spec",owner:"H5",prio:"P0",phase:1,area:"Embodiment"},
+    {id:"E7.3",title:"Impresora 3D export STL",owner:"H6",prio:"P3",phase:3,area:"Embodiment"},
+    {id:"E7.4",title:"Telescopio APIs",owner:"H6",prio:"P3",phase:4,area:"Embodiment"},
+    {id:"E7.5",title:"Peluche hardware spec",owner:"H2",prio:"P3",phase:4,area:"Embodiment"},
+    {id:"E7.6",title:"SDK de embodiments",owner:"H2",prio:"P2",phase:3,area:"Embodiment"},
+    {id:"E7.7",title:"Registro de embodiments",owner:"A1",prio:"P2",phase:3,area:"Embodiment"},
+    {id:"V8.1",title:"Decisión stack App",owner:"H1+H7",prio:"P0",phase:1,area:"App"},
+    {id:"V8.2",title:"Wireframes flujo niño",owner:"H7+A2",prio:"P0",phase:1,area:"App"},
+    {id:"V8.3",title:"Wireframes flujo papá",owner:"H7+A2",prio:"P0",phase:1,area:"App"},
+    {id:"V8.4",title:"Auth niño-papá",owner:"H7",prio:"P1",phase:2,area:"App"},
+    {id:"V8.5",title:"Chat agente WebSocket",owner:"H7",prio:"P1",phase:2,area:"App"},
+    {id:"V8.6",title:"Dashboard reportes",owner:"H7",prio:"P2",phase:2,area:"App"},
+    {id:"V8.7",title:"Switch embodiments",owner:"H7",prio:"P2",phase:3,area:"App"},
+    {id:"V8.8",title:"Onboarding app",owner:"H7+A3",prio:"P1",phase:2,area:"App"},
+    {id:"OB9.1",title:"Integrar AgentOps SDK",owner:"H8+A1",prio:"P1",phase:2,area:"Observability"},
+    {id:"OB9.2",title:"Dashboard de costos",owner:"A1",prio:"P1",phase:2,area:"Observability"},
+    {id:"OB9.3",title:"Alertas budget+offline",owner:"H8",prio:"P1",phase:2,area:"Observability"},
+    {id:"OB9.4",title:"Centralized logging",owner:"H8",prio:"P2",phase:2,area:"Observability"},
+    {id:"OB9.5",title:"Session replays",owner:"H8",prio:"P2",phase:3,area:"Observability"},
+    {id:"OB9.6",title:"Benchmarks modelos",owner:"A1",prio:"P2",phase:2,area:"Observability"},
+    {id:"SE10.1",title:"RBAC por agente",owner:"H8",prio:"P1",phase:2,area:"Security"},
+    {id:"SE10.2",title:"Consentimiento parental",owner:"H1",prio:"P0",phase:1,area:"Security"},
+    {id:"SE10.3",title:"Encriptación memorias",owner:"H8",prio:"P1",phase:2,area:"Security"},
+    {id:"SE10.4",title:"Audit trail",owner:"H8",prio:"P1",phase:2,area:"Security"},
+    {id:"SE10.5",title:"Chequeo COPPA/GDPR/LGPD",owner:"H1",prio:"P1",phase:2,area:"Security"},
+    {id:"SE10.6",title:"Penetration testing",owner:"H8",prio:"P2",phase:3,area:"Security"}
+  ]
+};
+
+function render() {
+  // Overview
+  document.getElementById('kpi-tasks').textContent = DATA.tasks.length;
+  document.getElementById('area-summary').innerHTML = DATA.areas.map(a =>
+    `<tr><td><strong>${a.id}</strong> · ${a.name}</td><td class="owner-human">${a.human}</td><td class="owner-agent">${a.agent}</td><td><code>${a.branch}</code></td><td>${a.p0}</td><td>${a.total}</td><td><span class="phase-badge">Fase ${a.phase}</span></td></tr>`
+  ).join('');
+
+  // Team
+  document.getElementById('team-humans').innerHTML = DATA.humans.map(h =>
+    `<tr><td><strong>${h.id}</strong></td><td>${h.name}</td><td>${h.role}</td><td>${h.areas}</td><td>${h.avail}</td></tr>`
+  ).join('');
+  document.getElementById('team-agents').innerHTML = DATA.agents.map(a =>
+    `<tr><td><strong>${a.id}</strong></td><td>${a.name}</td><td>${a.role}</td><td>${a.areas}</td><td>${a.model}</td><td><span class="status ${a.status}"></span>${a.status}</td></tr>`
+  ).join('');
+
+  // Areas detail
+  document.getElementById('areas-detail').innerHTML = DATA.areas.map(a => {
+    const tasks = DATA.tasks.filter(t => t.area === a.name);
+    return `<div class="panel">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <strong style="color:var(--accent)">${a.id} · ${a.name}</strong>
+        <span class="phase-badge">Fase ${a.phase}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px">
+        Humano: <span class="owner-human">${a.human}</span> · Agente: <span class="owner-agent">${a.agent}</span> · Rama: <code>${a.branch}</code>
+      </div>
+      <table><thead><tr><th>ID</th><th>Tarea</th><th>Owner</th><th>Prio</th></tr></thead>
+      <tbody>${tasks.map(t => `<tr><td>${t.id}</td><td>${t.title}</td><td>${t.owner}</td><td class="prio-${t.prio.toLowerCase()}">${t.prio}</td></tr>`).join('')}</tbody>
+      </table>
+    </div>`;
+  }).join('');
+
+  // Git branches
+  document.getElementById('git-branches').innerHTML = DATA.areas.map(a =>
+    `<p style="font-size:12px;margin:4px 0"><code style="color:var(--accent)">${a.branch}</code> · ${a.name} · lead ${a.human.split(' ')[0]}</p>`
+  ).join('');
+
+  renderTasks('all');
+}
+
+function renderTasks(filter) {
+  let tasks = DATA.tasks;
+  if (filter === 'P0' || filter === 'P1' || filter === 'P2') tasks = tasks.filter(t => t.prio === filter);
+  if (filter === 'fase1') tasks = tasks.filter(t => t.phase === 1);
+  if (filter === 'fase2') tasks = tasks.filter(t => t.phase === 2);
+  document.getElementById('tasks-table').innerHTML = tasks.map(t =>
+    `<tr><td>${t.id}</td><td>${t.title}</td><td>${t.owner}</td><td class="prio-${t.prio.toLowerCase()}">${t.prio}</td><td>Fase ${t.phase}</td><td>${t.area}</td></tr>`
+  ).join('');
+}
+window.filterTasks = renderTasks;
+
+document.querySelectorAll('nav a[data-view]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
+    document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+    document.getElementById('view-' + link.dataset.view).classList.remove('hidden');
+  });
+});
+
+render();
+</script>
+</body>
+</html>

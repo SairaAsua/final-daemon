@@ -1,0 +1,277 @@
+{
+  "name": "DaemonCraft · Manifesto opener · Nano Banana + Veo 3.1",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "fileSelector": "/home/saira/daemonmatrix-final-administrativo/marketing/videos/manifesto-opener/shots.json",
+        "options": {}
+      },
+      "id": "2",
+      "name": "Read shots.json",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "id": "3",
+      "name": "Parse JSON",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [600, 300]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "id": "4",
+      "name": "Split shots",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [800, 300]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "5",
+      "name": "Loop · one shot at a time",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image:generateContent",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [{\n    \"parts\": [{\n      \"text\": $json.image_prompt\n    }]\n  }],\n  \"generationConfig\": {\n    \"responseModalities\": [\"IMAGE\"],\n    \"imageConfig\": {\n      \"aspectRatio\": \"16:9\"\n    }\n  }\n}",
+        "options": {}
+      },
+      "id": "6",
+      "name": "Nano Banana Pro · generate frame",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1200, 300],
+      "notes": "Requires generic httpQueryAuth credential with name 'key' and your Gemini API key value. Endpoint name may need adjustment when Nano Banana Pro GA — verify at aistudio.google.com."
+    },
+    {
+      "parameters": {
+        "jsCode": "const b64 = $json.candidates[0].content.parts.find(p => p.inlineData).inlineData.data;\nreturn [{\n  json: {\n    shot_id: $('Loop · one shot at a time').item.json.id,\n    video_prompt: $('Loop · one shot at a time').item.json.video_prompt,\n    duration_seconds: $('Loop · one shot at a time').item.json.duration_seconds,\n    image_b64: b64\n  },\n  binary: {\n    data: {\n      data: b64,\n      mimeType: 'image/png',\n      fileName: `shot-${$('Loop · one shot at a time').item.json.id}.png`\n    }\n  }\n}];"
+      },
+      "id": "7",
+      "name": "Extract image binary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1400, 300]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/saira/daemonmatrix-final-administrativo/marketing/videos/manifesto-opener/frames/shot-{{ $json.shot_id }}.png",
+        "dataPropertyName": "data",
+        "options": {}
+      },
+      "id": "8",
+      "name": "Save frame PNG",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [1600, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/veo-3.1-generate-preview:predictLongRunning",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"instances\": [{\n    \"prompt\": $json.video_prompt,\n    \"image\": {\n      \"bytesBase64Encoded\": $json.image_b64,\n      \"mimeType\": \"image/png\"\n    }\n  }],\n  \"parameters\": {\n    \"aspectRatio\": \"16:9\",\n    \"durationSeconds\": $json.duration_seconds,\n    \"resolution\": \"1080p\",\n    \"generateAudio\": true\n  }\n}",
+        "options": {}
+      },
+      "id": "9",
+      "name": "Veo 3.1 · start video job",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1800, 300],
+      "notes": "Veo 3.1 may be behind a waitlist on Gemini API. If 403/404, switch to Vertex AI endpoint: https://us-central1-aiplatform.googleapis.com/v1/projects/{PROJECT}/locations/us-central1/publishers/google/models/veo-3.1:predictLongRunning"
+    },
+    {
+      "parameters": {
+        "amount": 20,
+        "unit": "seconds"
+      },
+      "id": "10",
+      "name": "Wait 20s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [2000, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/{{ $('Veo 3.1 · start video job').item.json.name }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "options": {}
+      },
+      "id": "11",
+      "name": "Poll Veo operation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2200, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.done }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "12",
+      "name": "Done?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2400, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const videoUri = $json.response?.generateVideoResponse?.generatedSamples?.[0]?.video?.uri || $json.response?.predictions?.[0]?.video?.uri;\nconst shotId = $('Loop · one shot at a time').item.json.id;\nreturn [{ json: { video_uri: videoUri, shot_id: shotId } }];"
+      },
+      "id": "13",
+      "name": "Extract video URI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2600, 200]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.video_uri }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "14",
+      "name": "Download video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2800, 200]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/home/saira/daemonmatrix-final-administrativo/marketing/videos/manifesto-opener/clips/shot-{{ $('Loop · one shot at a time').item.json.id }}.mp4",
+        "dataPropertyName": "data",
+        "options": {}
+      },
+      "id": "15",
+      "name": "Save clip MP4",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [3000, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst dir = '/home/saira/daemonmatrix-final-administrativo/marketing/videos/manifesto-opener';\nconst clips = fs.readdirSync(`${dir}/clips`).filter(f => f.endsWith('.mp4')).sort();\nconst concat = clips.map(f => `file 'clips/${f}'`).join('\\n');\nfs.writeFileSync(`${dir}/concat.txt`, concat + '\\n');\nreturn [{ json: { ok: true, clips_count: clips.length, concat_path: `${dir}/concat.txt` } }];"
+      },
+      "id": "16",
+      "name": "Write concat.txt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 500]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Read shots.json", "type": "main", "index": 0 }]]
+    },
+    "Read shots.json": {
+      "main": [[{ "node": "Parse JSON", "type": "main", "index": 0 }]]
+    },
+    "Parse JSON": {
+      "main": [[{ "node": "Split shots", "type": "main", "index": 0 }]]
+    },
+    "Split shots": {
+      "main": [[{ "node": "Loop · one shot at a time", "type": "main", "index": 0 }]]
+    },
+    "Loop · one shot at a time": {
+      "main": [
+        [{ "node": "Write concat.txt", "type": "main", "index": 0 }],
+        [{ "node": "Nano Banana Pro · generate frame", "type": "main", "index": 0 }]
+      ]
+    },
+    "Nano Banana Pro · generate frame": {
+      "main": [[{ "node": "Extract image binary", "type": "main", "index": 0 }]]
+    },
+    "Extract image binary": {
+      "main": [[{ "node": "Save frame PNG", "type": "main", "index": 0 }]]
+    },
+    "Save frame PNG": {
+      "main": [[{ "node": "Veo 3.1 · start video job", "type": "main", "index": 0 }]]
+    },
+    "Veo 3.1 · start video job": {
+      "main": [[{ "node": "Wait 20s", "type": "main", "index": 0 }]]
+    },
+    "Wait 20s": {
+      "main": [[{ "node": "Poll Veo operation", "type": "main", "index": 0 }]]
+    },
+    "Poll Veo operation": {
+      "main": [[{ "node": "Done?", "type": "main", "index": 0 }]]
+    },
+    "Done?": {
+      "main": [
+        [{ "node": "Extract video URI", "type": "main", "index": 0 }],
+        [{ "node": "Wait 20s", "type": "main", "index": 0 }]
+      ]
+    },
+    "Extract video URI": {
+      "main": [[{ "node": "Download video", "type": "main", "index": 0 }]]
+    },
+    "Download video": {
+      "main": [[{ "node": "Save clip MP4", "type": "main", "index": 0 }]]
+    },
+    "Save clip MP4": {
+      "main": [[{ "node": "Loop · one shot at a time", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

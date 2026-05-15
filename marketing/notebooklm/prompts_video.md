@@ -46,5 +46,5 @@ EVITAR:
 
 IDIOMA: Español rioplatense (vos en lugar de tú).
 
-PALETA VISUAL: acero-azul oscuro, con glow eléctrico azul-turquesa, partículas sutiles.
+PALETA VISUAL: vibe Allay (mob compañero de Minecraft). Cyan #7DD3FC con glow más intenso #06B6D4, perla cálida #F8FAFC para partículas y notas musicales, miel de antorcha #FBBF24 para acentos cálidos, índigo crepuscular #1E1B4B para profundidad, verde pradera musgosa #65A30D para terreno. Estética Minecraft con shaders (Complementary/BSL), volumetric god rays, ambient occlusion, painterly, Studio Ghibli + cinematic. NADA de acero-azul corporativo, NADA de tech/cyber/matrix visual. Tono: asombro tranquilo > acción, vínculo > poder.
 ```

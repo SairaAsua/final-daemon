@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ISA-95 Personnel -> Agent",
+  "description": "Perfil de agente mapeado desde el objeto Personnel de ISA-95 Part 1/2",
+  "type": "object",
+  "required": ["personnel_id", "personnel_class", "personnel_name", "status"],
+  "properties": {
+    "personnel_id": {
+      "type": "string",
+      "description": "Identificador unico del agente (eko, pampliNas, oraculo, stevie, moss, reed, flint, ember)"
+    },
+    "personnel_class": {
+      "type": "string",
+      "description": "Clase funcional del agente",
+      "enum": ["constructor_oracle", "role_master", "warrior", "chef", "merchant", "miner", "cave_keeper", "generalist"]
+    },
+    "personnel_name": {
+      "type": "string",
+      "description": "Nombre de display del agente"
+    },
+    "description": {
+      "type": "string",
+      "description": "Narrativa SOUL / descripcion del agente"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "spawning", "offline", "retired", "degraded"],
+      "description": "Estado actual del agente"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Lista de skills/capacidades disponibles"
+    },
+    "qualifications": {
+      "type": "object",
+      "description": "Cualificaciones tecnicas (modelo, provider, cost tier)",
+      "properties": {
+        "model": { "type": "string", "description": "Nombre del modelo LLM" },
+        "provider": { "type": "string", "description": "Proveedor o endpoint" },
+        "provider_type": { "type": "string", "enum": ["cloud_api", "local_gpu", "edge_tpu", "hybrid"] },
+        "cost_tier": { "type": "string", "enum": ["free", "low", "medium", "high", "enterprise"] },
+        "max_context": { "type": "integer", "description": "Maximo context window en tokens" },
+        "language": { "type": "string", "description": "Idioma principal del agente" }
+      }
+    },
+    "hierarchy": {
+      "type": "object",
+      "description": "Jerarquia ISA-95 para este agente",
+      "properties": {
+        "enterprise": { "type": "string", "description": "Empresa / proyecto al que pertenece" },
+        "site": { "type": "string", "description": "Sitio de despliegue" },
+        "area": { "type": "string", "description": "Area funcional" },
+        "work_center": { "type": "string", "description": "Centro de trabajo (CLI, Minecraft, hardware)" }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "endpoint": { "type": "string", "description": "URL o identificador de contacto" },
+        "health_check_url": { "type": "string" },
+        "last_heartbeat": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

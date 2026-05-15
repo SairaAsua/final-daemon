@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ISA-95 Operations Response -> Task Response",
+  "description": "Respuesta de operacion mapeada desde Operations Response de ISA-95",
+  "type": "object",
+  "required": ["response_id", "request_id", "status"],
+  "properties": {
+    "response_id": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Referencia al request original"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "failed", "rejected", "timeout"]
+    },
+    "personnel_id": {
+      "type": "string",
+      "description": "Agente que ejecuto"
+    },
+    "equipment_id": {
+      "type": "string",
+      "description": "Proveedor usado"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "output": {
+      "type": "object",
+      "description": "Resultado de la tarea (texto, archivo, accion, etc.)"
+    },
+    "cost": {
+      "type": "object",
+      "properties": {
+        "input_tokens": { "type": "integer" },
+        "output_tokens": { "type": "integer" },
+        "total_tokens": { "type": "integer" },
+        "estimated_cost_usd": { "type": "number" },
+        "latency_ms": { "type": "number" }
+      }
+    },
+    "quality_check": {
+      "type": "object",
+      "properties": {
+        "passed": { "type": "boolean" },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check_name": { "type": "string" },
+              "passed": { "type": "boolean" },
+              "details": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "logs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": { "type": "string", "format": "date-time" },
+          "level": { "type": "string", "enum": ["debug", "info", "warn", "error"] },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+}

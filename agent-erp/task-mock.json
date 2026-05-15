@@ -1,0 +1,66 @@
+{
+  "tasks": [
+    {
+      "id": "task-001",
+      "request_type": "build",
+      "assigned_agent": "eko",
+      "status": "completed",
+      "priority": "high",
+      "start_time": "2026-05-15T08:00:00Z",
+      "end_time": "2026-05-15T08:45:00Z",
+      "actual_cost_usd": 0.12,
+      "input_tokens": 4500,
+      "output_tokens": 3200
+    },
+    {
+      "id": "task-002",
+      "request_type": "research",
+      "assigned_agent": "eko",
+      "status": "completed",
+      "priority": "normal",
+      "start_time": "2026-05-15T09:00:00Z",
+      "end_time": "2026-05-15T09:30:00Z",
+      "actual_cost_usd": 0.08,
+      "input_tokens": 2800,
+      "output_tokens": 1900
+    },
+    {
+      "id": "task-003",
+      "request_type": "skill_update",
+      "assigned_agent": "pampliNas",
+      "status": "running",
+      "priority": "normal",
+      "start_time": "2026-05-15T10:00:00Z",
+      "actual_cost_usd": 0.03,
+      "input_tokens": 1200,
+      "output_tokens": 800
+    },
+    {
+      "id": "task-004",
+      "request_type": "narrative",
+      "assigned_agent": "oraculo",
+      "status": "pending",
+      "priority": "high",
+      "actual_cost_usd": 0.0
+    },
+    {
+      "id": "task-005",
+      "request_type": "deploy",
+      "assigned_agent": "eko",
+      "status": "failed",
+      "priority": "critical",
+      "start_time": "2026-05-15T07:30:00Z",
+      "end_time": "2026-05-15T07:32:00Z",
+      "actual_cost_usd": 0.01,
+      "input_tokens": 300,
+      "output_tokens": 150
+    },
+    {
+      "id": "task-006",
+      "request_type": "review",
+      "assigned_agent": "pampliNas",
+      "status": "pending",
+      "priority": "low"
+    }
+  ]
+}

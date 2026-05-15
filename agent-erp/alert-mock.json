@@ -1,0 +1,49 @@
+{
+  "alerts": [
+    {
+      "alert_id": "alert-001",
+      "severity": "warning",
+      "source_level": "L1",
+      "source_id": "eko",
+      "category": "latency_high",
+      "message": "Latencia promedio del agente eko > 200ms",
+      "triggered_at": "2026-05-15T09:15:00Z",
+      "acknowledged": false,
+      "escalation_level": 0
+    },
+    {
+      "alert_id": "alert-002",
+      "severity": "critical",
+      "source_level": "L3",
+      "source_id": "task-005",
+      "category": "error_spike",
+      "message": "Fallo en despliegue de agent-erp dashboard",
+      "triggered_at": "2026-05-15T07:32:00Z",
+      "acknowledged": true,
+      "acknowledged_by": "eko",
+      "escalation_level": 1
+    },
+    {
+      "alert_id": "alert-003",
+      "severity": "info",
+      "source_level": "L4",
+      "source_id": "registry",
+      "category": "maintenance_due",
+      "message": "Rebirth sync programado para 2026-05-16 03:00 UTC",
+      "triggered_at": "2026-05-15T08:00:00Z",
+      "acknowledged": false,
+      "escalation_level": 0
+    },
+    {
+      "alert_id": "alert-004",
+      "severity": "warning",
+      "source_level": "L0",
+      "source_id": "hardware-iot",
+      "category": "offline",
+      "message": "Embodiment Hardware IoT no responde desde hace 45 min",
+      "triggered_at": "2026-05-15T06:00:00Z",
+      "acknowledged": false,
+      "escalation_level": 0
+    }
+  ]
+}

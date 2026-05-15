@@ -66,10 +66,18 @@ DaemonCraft es el juego. **DaemonMatrix** es la capa de portabilidad de agentes 
 - [Invitación a comunidad beta](marketing/comunidad-beta.md)
 - [Social copy](marketing/social.md)
 - **🎙️ [NotebookLM · video y audio overview](marketing/notebooklm/)** — source + prompts para Video Overview, Audio Overview, Briefing Doc y Study Guide
+- **🎬 [Videos · Nano Banana + Veo 3.1](marketing/videos/)** — shotlists, prompts y n8n workflows para piezas cinematográficas. Primera: [manifesto-opener (75s)](marketing/videos/manifesto-opener/)
 
 ## Landing web (`web/`)
 
 - **🌐 [Landing HTML standalone](web/)** — `cd web && python3 -m http.server 8772` · luego abrir http://localhost:8772
+
+## Agent ERP (`agent-erp/`)
+
+- **⚙️ [Dashboard ERP para agentes](agent-erp/dashboard/)** — `cd agent-erp/dashboard && python3 -m http.server 8770` · luego abrir http://localhost:8770
+- Gestión de recursos multi-agente aplicando arquitectura ERP clásica al ecosistema DaemonCraft.
+- Módulos: Agent Registry, Memory Inventory, Skill Catalog, Workflow Engine, Cost Ledger.
+- Ver [agent-erp/README.md](agent-erp/README.md) para arquitectura y próximos pasos.
 
 ## Investigación (`research/`)
 

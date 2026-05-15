@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ISA-95 Production Schedule -> Task Schedule",
+  "description": "Plan de tareas mapeado desde el objeto Production Schedule de ISA-95",
+  "type": "object",
+  "required": ["schedule_id", "entries"],
+  "properties": {
+    "schedule_id": {
+      "type": "string",
+      "description": "ID del sprint o campana (sprint-2026-05, campaign-launch-v1)"
+    },
+    "schedule_type": {
+      "type": "string",
+      "enum": ["sprint", "campaign", "ad_hoc", "maintenance_window"]
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "owner": {
+      "type": "string",
+      "description": "Persona o agente responsable del schedule"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entry_id", "status"],
+        "properties": {
+          "entry_id": {
+            "type": "string",
+            "description": "Task ID"
+          },
+          "personnel_id": {
+            "type": "string",
+            "description": "Agente asignado"
+          },
+          "equipment_id": {
+            "type": "string",
+            "description": "Proveedor/modelo asignado"
+          },
+          "material_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Skills/memorias requeridas"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "running", "completed", "failed", "cancelled", "blocked"]
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "normal", "high", "critical"]
+          },
+          "estimated_cost_tokens": {
+            "type": "integer"
+          },
+          "actual_cost_tokens": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-05-15",
+  "inventory": [
+    {
+      "agent_id": "eko",
+      "memory_type": "semantic",
+      "backend": "SQLite + FTS5 + NVIDIA embeddings",
+      "path": "~/agents/eko/agent-memory/library.db",
+      "size_estimate_mb": 12,
+      "tables": ["memories", "conversations", "facts", "embeddings"],
+      "retention_policy": "durable",
+      "backup_path": "~/agents/eko/agent-memory/backups/",
+      "last_backup": null,
+      "shared_with": [],
+      "access_level": "private"
+    },
+    {
+      "agent_id": "eko",
+      "memory_type": "state",
+      "backend": "markdown files",
+      "path": "~/agents/eko/agent-memory/state/",
+      "files": ["DIALOGUE-HANDOFF.md", "NOW.md"],
+      "retention_policy": "rolling (ultimo turno)",
+      "shared_with": [],
+      "access_level": "private"
+    },
+    {
+      "agent_id": "eko",
+      "memory_type": "skill",
+      "backend": "markdown + python",
+      "path": "~/.hermes/profiles/eko/skills/",
+      "count_estimate": 25,
+      "retention_policy": "versioned (git)",
+      "shared_with": ["pamplinas", "oraculo"],
+      "access_level": "shared"
+    },
+    {
+      "agent_id": "pamplinas",
+      "memory_type": "semantic",
+      "backend": "SQLite + FTS5 + NVIDIA embeddings",
+      "path": "~/agents/pamplinas/agent-memory/library.db",
+      "size_estimate_mb": 5,
+      "tables": ["memories", "conversations", "facts", "embeddings"],
+      "retention_policy": "durable",
+      "backup_path": "~/agents/pamplinas/agent-memory/backups/",
+      "last_backup": null,
+      "shared_with": [],
+      "access_level": "private"
+    },
+    {
+      "agent_id": "oraculo",
+      "memory_type": "semantic",
+      "backend": "SQLite + FTS5 + NVIDIA embeddings",
+      "path": "~/agents/oraculo/agent-memory/library.db",
+      "size_estimate_mb": 3,
+      "tables": ["memories", "conversations", "facts", "embeddings"],
+      "retention_policy": "durable",
+      "backup_path": "~/agents/oraculo/agent-memory/backups/",
+      "last_backup": null,
+      "shared_with": [],
+      "access_level": "private"
+    },
+    {
+      "agent_id": "global",
+      "memory_type": "project",
+      "backend": "markdown",
+      "path": "~/daemonmatrix-final-administrativo/",
+      "files": ["README.md", "docs/", "plan/", "research/"],
+      "retention_policy": "git-versioned",
+      "shared_with": ["eko", "pamplinas", "oraculo"],
+      "access_level": "shared"
+    },
+    {
+      "agent_id": "global",
+      "memory_type": "canonical",
+      "backend": "markdown + sqlite",
+      "path": "~/daemonmatrix/eko-state/",
+      "files": ["SOUL.md", "LOGOS.md", "compaii-state-eko/"],
+      "retention_policy": "git-versioned + rebirth sync",
+      "shared_with": ["eko"],
+      "access_level": "owner"
+    }
+  ]
+}

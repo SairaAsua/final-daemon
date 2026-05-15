@@ -1,0 +1,153 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-05-15",
+  "project": "DaemonMatrix",
+  "framework": "ISA-95",
+  "leads": [
+    {
+      "id": "H1",
+      "name": "Saira",
+      "role": "Product Owner",
+      "levels": ["L4"],
+      "scope": "Transversal — todas las areas",
+      "email": "saira@altermundi.net",
+      "status": "active",
+      "accountable_for": [
+        "Strategic planning",
+        "Master data approval",
+        "Branding",
+        "Agent retirement/spawn approval"
+      ],
+      "responsible_objects": [
+        "agent-erp/agent-registry.json",
+        "agent-erp/skill-catalog.json",
+        "agent-erp/cost-ledger.md",
+        "docs/01_vision.md",
+        "docs/13_branding.md"
+      ]
+    },
+    {
+      "id": "H2",
+      "name": "Nico",
+      "role": "Arquitecto APL, Core, Bridge, Embodiment",
+      "levels": ["L1", "L0"],
+      "scope": "Runtime principal y embodiments fisicos",
+      "status": "active",
+      "accountable_for": [
+        "hermes-agent runtime",
+        "APL architecture",
+        "Sandboxing",
+        "Physical embodiments (IoT, hardware)"
+      ],
+      "responsible_objects": [
+        "hermes-agent",
+        "bridge-code",
+        "device-schemas",
+        "docs/16_arquitectura_real.md"
+      ]
+    },
+    {
+      "id": "H3",
+      "name": "Mariano",
+      "role": "Memoria, HMK, HIT, IA",
+      "levels": ["L1"],
+      "scope": "Subsistema de memoria persistente",
+      "status": "active",
+      "accountable_for": [
+        "hermes-memory-kit",
+        "library.db schema",
+        "Embedding pipeline",
+        "Memory integrity"
+      ],
+      "responsible_objects": [
+        "library.db",
+        "embed_verify.py",
+        "memoryctl.py",
+        "continuityctl.py",
+        "docs/05_logos_lavanguardia.md"
+      ]
+    },
+    {
+      "id": "H4",
+      "name": "Julian",
+      "role": "Psicologia, Soul Engine, Demo",
+      "levels": ["L4", "L3", "L1", "L0"],
+      "scope": "Transversal — calidad psicologica de agentes",
+      "status": "active",
+      "accountable_for": [
+        "Human Design profiles",
+        "SOUL coherence",
+        "Demo validation",
+        "Shadow/light mapping"
+      ],
+      "responsible_objects": [
+        "SOUL.md templates",
+        "HD profiles",
+        "demo-scripts",
+        "docs/04_soul_vanguaria.md"
+      ]
+    },
+    {
+      "id": "H5",
+      "name": "Anabella",
+      "role": "Bot Framework, Minecraft",
+      "levels": ["L3", "L0"],
+      "scope": "Framework de bots y embodiment Minecraft",
+      "status": "active",
+      "accountable_for": [
+        "Mineflayer integration",
+        "Bot lifecycle",
+        "Minecraft skills",
+        "Building blueprints"
+      ],
+      "responsible_objects": [
+        "DaemonCraft-minecraft",
+        "mineflayer-plugins",
+        "minecraft-skills"
+      ]
+    },
+    {
+      "id": "H6",
+      "name": "Federico",
+      "role": "Autoresearch, Arquitectura, Sonido, Backend, Orchestration",
+      "levels": ["L3"],
+      "scope": "Agent Execution System — corazon operativo",
+      "status": "active",
+      "accountable_for": [
+        "Task queue",
+        "Workflow engine",
+        "Backend APIs",
+        "Output validation",
+        "Sound systems"
+      ],
+      "responsible_objects": [
+        "task-queue.db",
+        "workflow-engine",
+        "backend-apis",
+        "autoresearch-pipeline",
+        "docs/11_stack.md"
+      ]
+    },
+    {
+      "id": "H8",
+      "name": "Jeremias",
+      "role": "Infra, Security, Observability",
+      "levels": ["L2"],
+      "scope": "SCADA/HMI + infraestructura fisica",
+      "status": "active",
+      "accountable_for": [
+        "Dashboards",
+        "Alerting",
+        "Infra",
+        "Security hardening",
+        "Uptime"
+      ],
+      "responsible_objects": [
+        "isa95-dashboard",
+        "alert-system",
+        "infra-as-code",
+        "security-policies"
+      ]
+    }
+  ]
+}
